@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class LabPOI : POI_Object
 {
@@ -9,16 +10,22 @@ public class LabPOI : POI_Object
     private float limitCap = 100;
     public float occupancy = 2;
     public Vector3 occupScale;
+    public Vector3 startScale;
     public GameObject container;
-   
+    public GameObject fuelBattery;
+    public Animator anim;
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+        anim = GetComponent<Animator>();
         poiName = "Lab";
         isElectrical = true;
+        lastStatus = PoiStatus.Active;
         status = PoiStatus.Active;
         container = transform.Find("ConPivot").gameObject;
         occupScale = new Vector3(0,((1 - 0.01f) / (containerСapacity / occupancy)),0);
+        startScale = container.transform.localScale;
         limitCap = containerСapacity / 5;
     }
 
@@ -35,17 +42,19 @@ public class LabPOI : POI_Object
                 break;
             case PoiStatus.Broken:
                 {
-                    Destroy(container);
+                    
                 }
                 break;
             case PoiStatus.Disabled:
                 {
-
+                    anim.SetBool("Event", false);
+                    isInteractable = false;
                 }
                 break;
             case PoiStatus.Event:
-                {
-
+                {                   
+                    DangerEvent();
+                    Interacting();
                 }
                 break;
         }
@@ -56,17 +65,46 @@ public class LabPOI : POI_Object
     public void fillingUP()
     {
 
-        if (curCapacity > containerСapacity + limitCap)
-        {
-            curCapacity = 0;
-            status = PoiStatus.Broken;
-        }else curCapacity += occupancy * Time.deltaTime;
-
         if (curCapacity < containerСapacity)
-        {           
-            container.transform.localScale += occupScale *Time.deltaTime;
+        {
+            container.transform.localScale += occupScale * Time.deltaTime;
+            curCapacity += occupancy * Time.deltaTime;
+        }
+        else
+        {
+            isInteractable = true;
+            NewStatus(PoiStatus.Event);
         }
     }
 
-  
+    public void DangerEvent()
+    {
+        if(curCapacity < containerСapacity + limitCap)
+        {
+            anim.SetBool("Event",true);
+            curCapacity += occupancy * Time.deltaTime;
+        } 
+        else
+        {
+            NewStatus(PoiStatus.Broken);
+            Destroy(container);
+            isInteractable = false;
+        }
+    }
+
+    public override void Interacting()
+    {
+        if(Input.GetKeyDown(KeyCode.L) && isInteractable)
+        {
+            NewStatus(PoiStatus.Active);
+            isInteractable = false;
+            anim.SetBool("Event", false);
+            container.transform.localScale = startScale;
+            fuelBattery.SetActive(true);
+            curCapacity = 0;
+            return;
+        }
+    }
+
+
 }

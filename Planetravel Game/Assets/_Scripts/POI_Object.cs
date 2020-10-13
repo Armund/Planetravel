@@ -5,17 +5,21 @@ using UnityEngine;
 public enum PoiStatus { Active, Disabled, Broken, Event, OnInteraction }
 public class POI_Object : MonoBehaviour
 {
-
+    protected MeshRenderer MR;
     public string poiName;
     public PoiStatus status;
+    public PoiStatus lastStatus;
     protected bool isElectrical;
+    [SerializeField]
+    protected bool isInteractable;
     public float timeBeforeNextEvent;
     public float minTimeBeforeEvent;
     public float maxTImeBeforeEvent;
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
+        MR = GetComponent<MeshRenderer>();
         gameObject.tag = "POI";
     }
 
@@ -26,10 +30,10 @@ public class POI_Object : MonoBehaviour
     }
 
     //Отсчет времени до следующего ивента
-    public void Tick()
+    public virtual void Tick()
     {
         if (timeBeforeNextEvent > 0) timeBeforeNextEvent -= Time.deltaTime;
-        else status = PoiStatus.Event;
+        else NewStatus(PoiStatus.Event);
     }
 
     //Функция отключения для электрических точек интереса
@@ -37,7 +41,18 @@ public class POI_Object : MonoBehaviour
     {
         if (!isElectrical || status == PoiStatus.Broken) return;
 
-        if (trig) status = PoiStatus.Active;
-        else status = PoiStatus.Disabled;
+        if (trig && status == PoiStatus.Disabled) status = lastStatus;
+        else if(!trig) NewStatus(PoiStatus.Disabled);
+    }
+
+    public virtual void Interacting()
+    {
+        return;
+    }
+
+    public void NewStatus(PoiStatus st)
+    {
+        lastStatus = status;
+        status = st;
     }
 }
