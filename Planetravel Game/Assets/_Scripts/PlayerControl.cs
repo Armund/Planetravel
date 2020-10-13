@@ -17,8 +17,8 @@ public class PlayerControl : MonoBehaviour
 	private Transform ch_transform;
 
 	//стабилизационные объекты
-	Quaternion rotation = Quaternion.Euler(0, 0, 0);
-	Vector3 zPosition = new Vector3(1, 1, 0);
+	//Quaternion rotation = Quaternion.Euler(0, 0, 0);
+	//Vector3 zPosition = new Vector3(1, 1, 0);
 
 	//состояния
 	private bool nearLadder;
@@ -32,11 +32,6 @@ public class PlayerControl : MonoBehaviour
 	
     void Update()
     {
-		//ch_transform.rotation = rotation;
-
-		//ch_transform.position *= new Vector3
-
-		//Debug.Log(Input.GetAxis("Horizontal"));
 		moveVectorHorizontal = -transform.right * Input.GetAxis("Horizontal") * speedMove * Time.deltaTime;
 		ch_rigidBody.position += moveVectorHorizontal;
 
