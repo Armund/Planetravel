@@ -25,7 +25,8 @@ public class GM : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!Electricity) OnElectricityOff();
+        
+        
     }
 
     
@@ -39,11 +40,11 @@ public class GM : MonoBehaviour
     }
 
     //Отключение всех электро-ТИ
-    private void OnElectricityOff()
+    public void OnElectricity()
     {
         foreach(POI_Object poi in PointsOfInterests)
         {
-            poi.SwitchElectricity(false);
+            poi.SwitchElectricity(Electricity);
         }
     }
 }

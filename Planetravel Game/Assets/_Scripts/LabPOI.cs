@@ -21,6 +21,7 @@ public class LabPOI : POI_Object
         anim = GetComponent<Animator>();
         poiName = "Lab";
         isElectrical = true;
+        lastStatus = PoiStatus.Active;
         status = PoiStatus.Active;
         container = transform.Find("ConPivot").gameObject;
         occupScale = new Vector3(0,((1 - 0.01f) / (containerСapacity / occupancy)),0);
@@ -51,9 +52,9 @@ public class LabPOI : POI_Object
                 }
                 break;
             case PoiStatus.Event:
-                {
+                {                   
+                    DangerEvent();
                     Interacting();
-                    DangerEvent();                  
                 }
                 break;
         }
@@ -72,7 +73,7 @@ public class LabPOI : POI_Object
         else
         {
             isInteractable = true;
-            status = PoiStatus.Event;
+            NewStatus(PoiStatus.Event);
         }
     }
 
@@ -85,7 +86,7 @@ public class LabPOI : POI_Object
         } 
         else
         {
-            status = PoiStatus.Broken;
+            NewStatus(PoiStatus.Broken);
             Destroy(container);
             isInteractable = false;
         }
@@ -95,7 +96,7 @@ public class LabPOI : POI_Object
     {
         if(Input.GetKeyDown(KeyCode.L) && isInteractable)
         {
-            status = PoiStatus.Active;
+            NewStatus(PoiStatus.Active);
             isInteractable = false;
             anim.SetBool("Event", false);
             container.transform.localScale = startScale;
