@@ -5,14 +5,13 @@ using UnityEngine;
 //Клас Генератора Электричества
 public class GenPOI : POI_Object
 {
-    private MeshRenderer MR;
     public Material genOnMat;
     public Material genOffMat;
-    
+    public GameObject Sparkles;
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
-        MR = GetComponent<MeshRenderer>();
+        base.Start();
         MR.material = genOnMat;
         poiName = "Generator";
         isElectrical = true;

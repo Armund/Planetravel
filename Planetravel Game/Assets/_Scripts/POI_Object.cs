@@ -5,17 +5,19 @@ using UnityEngine;
 public enum PoiStatus { Active, Disabled, Broken, Event, OnInteraction }
 public class POI_Object : MonoBehaviour
 {
-
+    protected MeshRenderer MR;
     public string poiName;
     public PoiStatus status;
     protected bool isElectrical;
+    protected bool isInteractable;
     public float timeBeforeNextEvent;
     public float minTimeBeforeEvent;
     public float maxTImeBeforeEvent;
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
+        MR = GetComponent<MeshRenderer>();
         gameObject.tag = "POI";
     }
 
@@ -39,5 +41,10 @@ public class POI_Object : MonoBehaviour
 
         if (trig) status = PoiStatus.Active;
         else status = PoiStatus.Disabled;
+    }
+
+    public virtual void Interacting()
+    {
+        return;
     }
 }
