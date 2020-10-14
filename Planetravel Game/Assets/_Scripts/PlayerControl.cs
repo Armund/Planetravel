@@ -7,6 +7,7 @@ public class PlayerControl : MonoBehaviour
 	//основные параметры
 	public float speedMove = 5;
 	public float speedOnLadder = 3;
+	public float jumpForce = 50;
 
 	//перезаписываемые объекты
 	private Vector3 moveVectorHorizontal;
@@ -22,12 +23,14 @@ public class PlayerControl : MonoBehaviour
 
 	//состояния
 	private bool nearLadder;
+	private bool isGrounded;
 	
 	void Start()
     {
 		ch_rigidBody = GetComponent<Rigidbody>();
 		ch_transform = GetComponent<Transform>();
 		nearLadder = false;
+		isGrounded = true;
     }
 	
     void Update()
@@ -35,6 +38,9 @@ public class PlayerControl : MonoBehaviour
 		moveVectorHorizontal = -transform.right * Input.GetAxis("Horizontal") * speedMove * Time.deltaTime;
 		ch_rigidBody.position += moveVectorHorizontal;
 
+		if (Input.GetKeyDown(KeyCode.Space) && !nearLadder && isGrounded) {
+			ch_rigidBody.AddForce(ch_transform.up * jumpForce);
+		}
 		
 		LadderControl();
 	}
@@ -43,11 +49,17 @@ public class PlayerControl : MonoBehaviour
 		if (other.gameObject.CompareTag("Ladder")) {
 			EnterLadder();
 		}
+		if (other.gameObject.CompareTag("Ground")) {
+			isGrounded = true;
+		}
 	}
 
 	private void OnTriggerExit(Collider other) {
 		if (other.gameObject.CompareTag("Ladder")) {
 			ExitLadder();
+		}
+		if (other.gameObject.CompareTag("Ground")) {
+			isGrounded = false;
 		}
 	}
 
@@ -59,13 +71,14 @@ public class PlayerControl : MonoBehaviour
 	}
 
 	void EnterLadder() {
-		Debug.Log("ПРИЛИПЛИ");
+		//Debug.Log("ПРИЛИПЛИ");
+		ch_rigidBody.velocity = Vector3.zero;
 		nearLadder = true;
 		ch_rigidBody.useGravity = false;
 	}
 
 	void ExitLadder() {
-		Debug.Log("ОТЛИПЛИ");
+		//Debug.Log("ОТЛИПЛИ");
 		nearLadder = false;
 		ch_rigidBody.useGravity = true;
 	}

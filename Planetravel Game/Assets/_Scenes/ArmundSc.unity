@@ -452,7 +452,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 389958847}
-  - component: {fileID: 389958846}
+  - component: {fileID: 389958851}
   - component: {fileID: 389958848}
   - component: {fileID: 389958849}
   - component: {fileID: 389958850}
@@ -463,20 +463,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &389958846
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 389958845}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eff3c94a612bed844867cd8f45306da5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speedMove: 5
-  speedOnLadder: 3
 --- !u!4 &389958847
 Transform:
   m_ObjectHideFlags: 0
@@ -502,11 +488,11 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 120
   m_CollisionDetection: 0
 --- !u!136 &389958849
 CapsuleCollider:
@@ -535,6 +521,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.37, y: 1, z: 0.59}
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &389958851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 389958845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d2b72c957da94541bfd2850b291198e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedMove: 5
+  speedOnLadder: 5
+  jumpForce: 150
 --- !u!1 &397464901
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,7 +551,7 @@ GameObject:
   m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &397464902
 Transform:
   m_ObjectHideFlags: 0
@@ -759,7 +760,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1299415143
 Transform:
   m_ObjectHideFlags: 0
@@ -803,7 +804,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1401372102
 Transform:
   m_ObjectHideFlags: 0
@@ -1338,7 +1339,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 5.4, z: 1.28}
+  m_Size: {x: 2.4, y: 5.4, z: 1.28}
   m_Center: {x: 0, y: 2.23, z: 0}
 --- !u!114 &1896874223
 MonoBehaviour:
