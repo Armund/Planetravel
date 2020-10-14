@@ -24,6 +24,9 @@ public class PlayerControl : MonoBehaviour
 	//состояния
 	private bool nearLadder;
 	private bool isGrounded;
+
+	//ссылки на другие объекты
+	MiniGame miniGame;
 	
 	void Start()
     {
@@ -51,6 +54,12 @@ public class PlayerControl : MonoBehaviour
 		}
 		if (other.gameObject.CompareTag("Ground")) {
 			isGrounded = true;
+		}
+		if (other.gameObject.CompareTag("MiniGame")) {
+			Debug.Log("MG");
+			miniGame = other.gameObject.GetComponent<MiniGame>();
+			Debug.Log(miniGame.GetType());
+			miniGame.Init();
 		}
 	}
 
