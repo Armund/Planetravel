@@ -59,7 +59,8 @@ public class PlayerControl : MonoBehaviour
 			Debug.Log("MG");
 			miniGame = other.gameObject.GetComponent<MiniGame>();
 			Debug.Log(miniGame.GetType());
-			miniGame.Init();
+			//miniGame.Init();
+			//Debug.Log(miniGame.x);
 		}
 	}
 
