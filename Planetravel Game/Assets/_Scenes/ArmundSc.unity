@@ -234,7 +234,7 @@ GameObject:
   - component: {fileID: 77498178}
   m_Layer: 0
   m_Name: floor 1 (3)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -247,7 +247,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 77498176}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -12.31, y: 2.6847975, z: -0.49}
+  m_LocalPosition: {x: -12.58, y: 2.6847975, z: -0.49}
   m_LocalScale: {x: 6.054773, y: 1.0000001, z: 1.6593164}
   m_Children: []
   m_Father: {fileID: 1994255245}
@@ -346,7 +346,7 @@ GameObject:
   - component: {fileID: 123013968}
   m_Layer: 0
   m_Name: floor 1 (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -359,7 +359,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 123013966}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -23.303, y: 2.6847975, z: -0.49}
+  m_LocalPosition: {x: -22.99, y: 2.6847975, z: -0.49}
   m_LocalScale: {x: 11.96533, y: 1.0000001, z: 1.6593164}
   m_Children: []
   m_Father: {fileID: 1994255245}
@@ -456,6 +456,7 @@ GameObject:
   - component: {fileID: 389958848}
   - component: {fileID: 389958849}
   - component: {fileID: 389958850}
+  - component: {fileID: 389958846}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -463,6 +464,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &389958846
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 389958845}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.22, y: 0.1, z: 0.21}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &389958847
 Transform:
   m_ObjectHideFlags: 0
@@ -535,7 +549,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speedMove: 5
   speedOnLadder: 5
-  jumpForce: 150
+  jumpForce: 500
 --- !u!1 &397464901
 GameObject:
   m_ObjectHideFlags: 0
@@ -581,7 +595,7 @@ GameObject:
   - component: {fileID: 483659241}
   m_Layer: 0
   m_Name: floor 1 (4)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -813,7 +827,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1401372101}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.858, z: 0}
+  m_LocalPosition: {x: 0, y: 5.57, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1896874221}
@@ -827,7 +841,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1401372101}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 0.13, z: 1}
@@ -847,7 +861,7 @@ GameObject:
   - component: {fileID: 1459839838}
   m_Layer: 0
   m_Name: floor 1 (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1339,7 +1353,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.4, y: 5.4, z: 1.28}
+  m_Size: {x: 1.58, y: 5.4, z: 1.28}
   m_Center: {x: 0, y: 2.23, z: 0}
 --- !u!114 &1896874223
 MonoBehaviour:
@@ -1499,7 +1513,7 @@ GameObject:
   - component: {fileID: 2087475371}
   m_Layer: 0
   m_Name: floor 1
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
