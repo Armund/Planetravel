@@ -30,7 +30,7 @@ public class GenPOI : POI_Object
         {
             case PoiStatus.Active:
                 {
-                    Tick();
+                    if(GM.gm.isMoreEventAvailable()) Tick();
                     MR.material = genOnMat;
                 }
                 break;
@@ -53,7 +53,7 @@ public class GenPOI : POI_Object
     {
 
         if (timeBeforeNextEvent > 0) timeBeforeNextEvent -= Time.deltaTime;
-        else
+        else 
         {
             isInteractable = true;
             Sparkles.SetActive(true);
@@ -91,8 +91,8 @@ public class GenPOI : POI_Object
 
     public void EGenerator(bool trig)
     {
-        GM.inst.Electricity = trig;
-        GM.inst.OnElectricity();
+        GM.gm.Electricity = trig;
+        GM.gm.OnElectricity();
     }
 
 }
