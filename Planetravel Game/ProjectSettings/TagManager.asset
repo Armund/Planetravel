@@ -6,6 +6,11 @@ TagManager:
   tags:
   - POI
   - GM
+  - Ladder
+  - LadderPoint
+  - LadderTop
+  - Ground
+  - MiniGame
   layers:
   - Default
   - TransparentFX
@@ -15,7 +20,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Ground
   - 
   - 
   - 
