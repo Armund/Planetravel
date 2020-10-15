@@ -4,6 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - POI
+  - GM
   - Ladder
   - LadderPoint
   - LadderTop
