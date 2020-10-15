@@ -16,5 +16,6 @@ public class MiniGame : MonoBehaviour
         
     }
 
-	public void Init() { }
+	virtual public void Init() { }
+	virtual public void Close() { }
 }
