@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
+	// commit minor
 	//основные параметры
 	public float speedMove = 5;
 	public float speedOnLadder = 3;
