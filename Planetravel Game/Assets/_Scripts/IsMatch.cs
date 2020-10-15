@@ -33,12 +33,19 @@ public class IsMatch : MiniGame
 			Answer(true);
 		}
 	}
-	
-	new public void Init() {
+
+	override public void Init() {
 		canvas.gameObject.SetActive(true);
 		imageValues[0] = 0;
 		imageValues[1] = 0;
 		StartCoroutine(FirstPicture());
+	}
+
+	override public void Close() {
+		canvas.gameObject.SetActive(false);
+		//imageValues[0] = 0;
+		//imageValues[1] = 0;
+		//StartCoroutine(FirstPicture());
 	}
 
 	public void Answer(bool answer) {

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
+	// commit minor
 	//основные параметры
 	public float speedMove = 5;
 	public float speedOnLadder = 3;
@@ -24,6 +25,7 @@ public class PlayerControl : MonoBehaviour
 	//состояния
 	private bool nearLadder;
 	private bool isGrounded;
+	private bool nearMiniGame;
 
 	//ссылки на другие объекты
 	MiniGame miniGame;
@@ -34,6 +36,7 @@ public class PlayerControl : MonoBehaviour
 		ch_transform = GetComponent<Transform>();
 		nearLadder = false;
 		isGrounded = true;
+		nearMiniGame = false;
     }
 	
     void Update()
@@ -56,11 +59,9 @@ public class PlayerControl : MonoBehaviour
 			isGrounded = true;
 		}
 		if (other.gameObject.CompareTag("MiniGame")) {
-			Debug.Log("MG");
 			miniGame = other.gameObject.GetComponent<MiniGame>();
-			Debug.Log(miniGame.GetType());
+			nearMiniGame = true;
 			//miniGame.Init();
-			//Debug.Log(miniGame.x);
 		}
 	}
 
@@ -70,6 +71,13 @@ public class PlayerControl : MonoBehaviour
 		}
 		if (other.gameObject.CompareTag("Ground")) {
 			isGrounded = false;
+		}
+		if (other.gameObject.CompareTag("MiniGame")) {
+			miniGame.Close();
+			miniGame = null;
+			nearMiniGame = false;
+
+			//miniGame.Init();
 		}
 	}
 
