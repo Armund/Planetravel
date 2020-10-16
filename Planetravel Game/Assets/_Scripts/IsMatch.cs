@@ -26,12 +26,14 @@ public class IsMatch : MiniGame
     // Update is called once per frame
     void Update()
     {
+		/*
         if (Input.GetKeyDown(KeyCode.Q)) {
 			Answer(false);
 		}
 		if (Input.GetKeyDown(KeyCode.E)) {
 			Answer(true);
 		}
+		*/
 	}
 
 	override public void Init() {
@@ -41,10 +43,26 @@ public class IsMatch : MiniGame
 		StartCoroutine(FirstPicture());
 	}
 
+	IEnumerator FirstPicture() {
+		int rand = Random.Range(0,4);
+		imageValues[0] = rand;
+		pictureToDelete = PlaceImage(pictures[rand], place2);
+
+		yield return new WaitForSeconds(1);
+
+		PlaceImage(pictures[4], place1);
+		rand = Random.Range(0, 4);
+		imageValues[1] = rand;
+		Destroy(pictureToDelete.gameObject);
+		pictureToDelete = PlaceImage(pictures[rand], place2);
+	}
+
 	override public void Close() {
 		canvas.gameObject.SetActive(false);
-		//imageValues[0] = 0;
-		//imageValues[1] = 0;
+		imageValues[0] = 0;
+		imageValues[1] = 0;
+		Destroy(pictureToDelete.gameObject);
+		Destroy(pictureToDelete.gameObject);
 		//StartCoroutine(FirstPicture());
 	}
 
@@ -67,20 +85,6 @@ public class IsMatch : MiniGame
 
 		int rand = Random.Range(0, 4);
 		imageValues[1] = rand;
-		pictureToDelete = PlaceImage(pictures[rand], place2);
-	}
-
-	IEnumerator FirstPicture() {
-		int rand = Random.Range(0,4);
-		imageValues[0] = rand;
-		pictureToDelete = PlaceImage(pictures[rand], place2);
-
-		yield return new WaitForSeconds(1);
-
-		PlaceImage(pictures[4], place1);
-		rand = Random.Range(0, 4);
-		imageValues[1] = rand;
-		Destroy(pictureToDelete.gameObject);
 		pictureToDelete = PlaceImage(pictures[rand], place2);
 	}
 
