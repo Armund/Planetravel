@@ -46,7 +46,7 @@ public class GenPOI : POI_Object
             case PoiStatus.OnInteraction:
                 {
                     //временное
-                    SetEventDone();
+                    //SetEventDone();
                     MiniGameInteraction();                   
                 }
             break;
@@ -56,8 +56,6 @@ public class GenPOI : POI_Object
                 }
                 break;
         }
-
-        Interacting();
     }
 
   
@@ -75,9 +73,10 @@ public class GenPOI : POI_Object
 
     public override void Interacting()
     {
-        if (Input.GetKeyDown(KeyCode.G) && isInteractable)
+        if (isInteractable)
         {                       
             NewStatus(PoiStatus.OnInteraction);
+			miniGame.Init();
             //Вот тут вызов миниигры
         }       
     }

@@ -10,7 +10,7 @@ public class Levers : MiniGame
 	public Sprite buttonDownSprite;
 
 	//состояния
-	//bool isStarted;
+	bool isStarted;
 
 	
 	public Text[] numbersTop = new Text[6];
@@ -30,45 +30,51 @@ public class Levers : MiniGame
 
 	void Start()
     {
+		isStarted = false;
 		gameNumber = 0;
 	}
 
 	override public void Init() {
-		canvas.gameObject.SetActive(true);
+		if (!isStarted) {
+			canvas.gameObject.SetActive(true);
 
-		//int rand = Random.Range(0, 10);
-		if (gameNumber > LeversPresets.presetsNumber) {
-			gameNumber = 0;
-		} else {
-			gameNumber++;
+			//int rand = Random.Range(0, 10);
+			if (gameNumber > LeversPresets.presetsNumber) {
+				gameNumber = 0;
+			} else {
+				gameNumber++;
+			}
+			int rand = gameNumber;
+			rand = 0; //пока не сделаны пресеты
+
+			for (int i = 0; i < 6; i++) {
+				valuesTop[i] = LeversPresets.valuesTop[rand, i];
+				valuesBot[i] = LeversPresets.valuesBot[rand, i];
+			}
+			goalTop = LeversPresets.goalsTop[rand];
+			goalBot = LeversPresets.goalsBot[rand];
+
+			for (int i = 0; i < 6; i++) {
+				levers[i] = true;
+				buttons[i].GetComponent<Image>().sprite = buttonUpSprite;
+				numbersTop[i].text = valuesTop[i].ToString();
+				numbersBot[i].text = valuesBot[i].ToString();
+			}
+
+			goalTopText.text = goalTop.ToString();
+			goalBotText.text = goalBot.ToString();
+			IsGameOver(); // 
+
+			isStarted = true;
 		}
-		int rand = gameNumber;
-		rand = 0; //пока не сделаны пресеты
-
-		for (int i = 0; i < 6; i++) {
-			valuesTop[i] = LeversPresets.valuesTop[rand, i];
-			valuesBot[i] = LeversPresets.valuesBot[rand, i];
-		}
-		goalTop = LeversPresets.goalsTop[rand];
-		goalBot = LeversPresets.goalsBot[rand];
-
-		for (int i = 0; i < 6; i++) {
-			levers[i] = true;
-			buttons[i].GetComponent<Image>().sprite = buttonUpSprite;
-			numbersTop[i].text = valuesTop[i].ToString();
-			numbersBot[i].text = valuesBot[i].ToString();
-		}
-
-		goalTopText.text = goalTop.ToString();
-		goalBotText.text = goalBot.ToString();
-		IsGameOver(); // 
-
-		//isStarted = true;
 	}
 
 	override public void Close() {
-		canvas.gameObject.SetActive(false);
-		//isStarted = false;
+		if (isStarted) {
+			canvas.gameObject.SetActive(false);
+			poi.EventLosing();
+			isStarted = false;
+		}
 	}
 
 	public void SwitchLever(int leverNumber) {
@@ -81,6 +87,7 @@ public class Levers : MiniGame
 
 		if (IsGameOver()) {
 			goalTopText.text = "WIN";
+			poi.SetEventDone();
 		}
 		//Debug.Log("Button " + leverNumber + " pressed");
 	}
