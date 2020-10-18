@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 8075302541349393516}
   m_LocalRotation: {x: 0, y: -0.5108505, z: 0, w: 0.85966957}
   m_LocalPosition: {x: 2.64, y: 1.05, z: -4.94}
-  m_LocalScale: {x: 1.8653, y: 1.8653, z: 1.8653}
+  m_LocalScale: {x: 0.001170757, y: 0.0011707582, z: 0.0011707566}
   m_Children:
   - {fileID: 8075302540114950475}
   m_Father: {fileID: 0}
@@ -116,6 +116,7 @@ MonoBehaviour:
   timeBeforeNextEvent: 0
   minTimeBeforeEvent: 30
   maxTImeBeforeEvent: 50
+  EventDone: 0
   genOnMat: {fileID: 2100000, guid: f884bfbc078bfa84eafb2ae223ccb2f0, type: 2}
   genOffMat: {fileID: 2100000, guid: edcba40a8f88ca940baa1be28725f8bf, type: 2}
   Sparkles: {fileID: 8075302540114950474}

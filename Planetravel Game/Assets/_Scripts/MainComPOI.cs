@@ -2,21 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//Клас Генератора Электричества
-public class GenPOI : POI_Object
+public class MainComPOI : POI_Object
 {
-    public Material genOnMat;
-    public Material genOffMat;
 
+    public float speedMod;
+    private float directionMod;
+    public float timeForBackwardDir = 120;
+    public float changingDirStep;
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
-        MR.material = genOnMat;
-        poiName = "Generator";
-        isElectrical = false;
+        poiName = "MC";
+        isElectrical = true;
         lastStatus = PoiStatus.Active;
+        directionMod = 1; 
+        speedMod = 1;
+        changingDirStep = 2f / timeForBackwardDir;
         status = PoiStatus.Active;
+        isInteractable = false;
         timeBeforeNextEvent = Random.Range(minTimeBeforeEvent, maxTImeBeforeEvent);
     }
 
@@ -27,29 +31,29 @@ public class GenPOI : POI_Object
         {
             case PoiStatus.Active:
                 {
-                    if(GM.gm.isMoreEventAvailable()) TickToEvent();
-                    
+                    if (GM.gm.isMoreEventAvailable()) TickToEvent();
+
                 }
                 break;
             case PoiStatus.Disabled:
                 {
-                    
+
                 }
                 break;
             case PoiStatus.Event:
                 {
 
-                    PoiEvent();
-                    
+                    ChangingWay();
+
                 }
                 break;
             case PoiStatus.OnInteraction:
                 {
                     //временное
                     SetEventDone();
-                    MiniGameInteraction();                   
+                    MiniGameInteraction();
                 }
-            break;
+                break;
             case PoiStatus.AfterEvent:
                 {
                     ResetAfterEvent();
@@ -60,29 +64,22 @@ public class GenPOI : POI_Object
         Interacting();
     }
 
-  
-
-    
-
-    public override void PoiEventEffect()
+    public void ChangingWay()
     {
-        EGenerator(false);
-        MR.material = genOffMat;
-        repairCounter = 0;
-        NewStatus(PoiStatus.Disabled);
-        Sparkles.SetActive(false);
+        speedMod = Mathf.Lerp(-1, 1, directionMod);
+        directionMod -= changingDirStep * Time.deltaTime;
     }
+
 
     public override void Interacting()
     {
-        if (Input.GetKeyDown(KeyCode.G) && isInteractable)
-        {                       
+        if (Input.GetKeyDown(KeyCode.M) && isInteractable)
+        {
             NewStatus(PoiStatus.OnInteraction);
             //Вот тут вызов миниигры
-        }       
+        }
     }
 
-    //Взаимодействие с миниигрой работает через функцию SetEventDone
     public override void MiniGameInteraction()
     {
         if (!EventDone) return;
@@ -91,20 +88,11 @@ public class GenPOI : POI_Object
 
     public override void ResetAfterEvent()
     {
-        Sparkles.SetActive(false);
         isInteractable = false;
         timeBeforeNextEvent = Random.Range(minTimeBeforeEvent, maxTImeBeforeEvent);
-        EGenerator(true);
-        MR.material = genOnMat;
         GM.gm.DeleteActiveEvent();
+        speedMod = 1;
         NewStatus(PoiStatus.Active);
-        EventDone = false;    
+        EventDone = false;
     }
-
-    public void EGenerator(bool trig)
-    {
-        GM.gm.Electricity = trig;
-        GM.gm.OnElectricity();
-    }
-
 }

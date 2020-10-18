@@ -7,26 +7,29 @@ public class LabPOI : POI_Object
 {
     public float containerСapacity = 500;
     public float curCapacity = 0;
-    private float limitCap = 100;
     public float occupancy = 2;
+
     public Vector3 occupScale;
     public Vector3 startScale;
+
     public GameObject container;
     public GameObject fuelBattery;
-    public Animator anim;
+
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
-        anim = GetComponent<Animator>();
         poiName = "Lab";
         isElectrical = true;
-        lastStatus = PoiStatus.Active;
-        status = PoiStatus.Active;
+
+        lastStatus = PoiStatus.UnActive;
+        status = PoiStatus.UnActive;
+        isInteractable = true;
+
         container = transform.Find("ConPivot").gameObject;
         occupScale = new Vector3(0,((1 - 0.01f) / (containerСapacity / occupancy)),0);
         startScale = container.transform.localScale;
-        limitCap = containerСapacity / 5;
+
     }
 
     // Update is called once per frame
@@ -35,30 +38,36 @@ public class LabPOI : POI_Object
 
         switch(status)
         {
+            case PoiStatus.UnActive:
+                {
+                    isInteractable = true;
+                }
+                break;
+            case PoiStatus.OnInteraction:
+                {
+                    //временное
+                    SetEventDone();
+                    MiniGameInteraction();
+                }
+                break;
             case PoiStatus.Active:
                 {
                     fillingUP();
                 }
-                break;
-            case PoiStatus.Broken:
-                {
-                    
-                }
-                break;
+                break;      
             case PoiStatus.Disabled:
                 {
-                    anim.SetBool("Event", false);
-                    isInteractable = false;
+                    isInteractable = (lastStatus == PoiStatus.Event) ? true : false;
                 }
                 break;
             case PoiStatus.Event:
-                {                   
-                    DangerEvent();
-                    Interacting();
+                {
+                    isInteractable = true;              
                 }
                 break;
         }
 
+        Interacting();
     }
 
     //Заполнения контейнера с топливом. Будучи заполненым, контейнер какое-то время еще будет заполнятся, пока не сломается.
@@ -73,37 +82,49 @@ public class LabPOI : POI_Object
         else
         {
             isInteractable = true;
+            fuelBattery.SetActive(true);
+            container.transform.localScale = startScale;
+            curCapacity = 0;
             NewStatus(PoiStatus.Event);
         }
     }
 
-    public void DangerEvent()
+
+    public override void MiniGameInteraction()
     {
-        if(curCapacity < containerСapacity + limitCap)
-        {
-            anim.SetBool("Event",true);
-            curCapacity += occupancy * Time.deltaTime;
-        } 
-        else
-        {
-            NewStatus(PoiStatus.Broken);
-            Destroy(container);
-            isInteractable = false;
-        }
+        if (!EventDone) return;
+        else { NewStatus(PoiStatus.Active); EventDone = false; }
     }
 
     public override void Interacting()
     {
         if(Input.GetKeyDown(KeyCode.L) && isInteractable)
         {
-            NewStatus(PoiStatus.Active);
-            isInteractable = false;
-            anim.SetBool("Event", false);
-            container.transform.localScale = startScale;
-            fuelBattery.SetActive(true);
-            curCapacity = 0;
-            return;
+            if (status == PoiStatus.UnActive)
+            {
+                NewStatus(PoiStatus.OnInteraction);
+                return;
+                //Вызов миниигры
+            }
+            else if (status == PoiStatus.Event)
+            {
+                GetFuel();
+                isInteractable = true;
+                NewStatus(PoiStatus.UnActive);
+            }
+            else if (status == PoiStatus.Disabled && lastStatus == PoiStatus.Event)
+            {
+                GetFuel();
+                isInteractable = false;
+                NewStatus(PoiStatus.UnActive);
+                NewStatus(PoiStatus.Disabled);
+            }
         }
+    }
+
+    public void GetFuel()
+    {
+        fuelBattery.SetActive(false);
     }
 
 
