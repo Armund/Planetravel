@@ -2,21 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//Клас Генератора Электричества
-public class GenPOI : POI_Object
+public class TurbineControlPOI : POI_Object
 {
-    public Material genOnMat;
-    public Material genOffMat;
-
+    public GameObject TurbineFlames;
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
-        MR.material = genOnMat;
-        poiName = "Generator";
+        poiName = "Tur";
         isElectrical = false;
+        TurbineFlames.SetActive(true);
         lastStatus = PoiStatus.Active;
         status = PoiStatus.Active;
+        isInteractable = false;
         timeBeforeNextEvent = Random.Range(minTimeBeforeEvent, maxTImeBeforeEvent);
     }
 
@@ -27,29 +25,29 @@ public class GenPOI : POI_Object
         {
             case PoiStatus.Active:
                 {
-                    if(GM.gm.isMoreEventAvailable()) TickToEvent();
-                    
+                    if (GM.gm.isMoreEventAvailable()) TickToEvent();
+
                 }
                 break;
             case PoiStatus.Disabled:
                 {
-                    
+
                 }
                 break;
             case PoiStatus.Event:
                 {
 
                     PoiEvent();
-                    
+
                 }
                 break;
             case PoiStatus.OnInteraction:
                 {
                     //временное
                     SetEventDone();
-                    MiniGameInteraction();                   
+                    MiniGameInteraction();
                 }
-            break;
+                break;
             case PoiStatus.AfterEvent:
                 {
                     ResetAfterEvent();
@@ -60,14 +58,9 @@ public class GenPOI : POI_Object
         Interacting();
     }
 
-  
-
-    
-
     public override void PoiEventEffect()
     {
-        EGenerator(false);
-        MR.material = genOffMat;
+        TurbineFlames.SetActive(false);
         repairCounter = 0;
         NewStatus(PoiStatus.Disabled);
         Sparkles.SetActive(false);
@@ -75,14 +68,13 @@ public class GenPOI : POI_Object
 
     public override void Interacting()
     {
-        if (Input.GetKeyDown(KeyCode.G) && isInteractable)
-        {                       
+        if (Input.GetKeyDown(KeyCode.T) && isInteractable)
+        {
             NewStatus(PoiStatus.OnInteraction);
             //Вот тут вызов миниигры
-        }       
+        }
     }
 
-    //Взаимодействие с миниигрой работает через функцию SetEventDone
     public override void MiniGameInteraction()
     {
         if (!EventDone) return;
@@ -92,19 +84,11 @@ public class GenPOI : POI_Object
     public override void ResetAfterEvent()
     {
         Sparkles.SetActive(false);
+        TurbineFlames.SetActive(true);
         isInteractable = false;
         timeBeforeNextEvent = Random.Range(minTimeBeforeEvent, maxTImeBeforeEvent);
-        EGenerator(true);
-        MR.material = genOnMat;
         GM.gm.DeleteActiveEvent();
         NewStatus(PoiStatus.Active);
-        EventDone = false;    
+        EventDone = false;
     }
-
-    public void EGenerator(bool trig)
-    {
-        GM.gm.Electricity = trig;
-        GM.gm.OnElectricity();
-    }
-
 }

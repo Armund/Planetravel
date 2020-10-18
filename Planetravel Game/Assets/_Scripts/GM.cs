@@ -5,17 +5,22 @@ using UnityEngine;
 public enum GameState { Init, Tutorial, Start, Session, LoseState, WinState, End }
 public class GM : MonoBehaviour
 {
+    
     public bool Electricity;
     public GameState state = GameState.Init;
     public static GM gm = null;
     public List<POI_Object> PointsOfInterests = new List<POI_Object>();
-    public List<POI_Object> POIwithActiveEvents;
+    public List<TurbineControlPOI> Turbines = new List<TurbineControlPOI>();
+    public MainComPOI MC;
+    public int ActiveEvents;
+    public int ActiveTurbines;
+   // public List<POI_Object> POIwithActiveEvents;
     public int maxOfEvents;
-    public int curAmountOfEvents;
+    
     // Start is called before the first frame update
     void Start()
     {
-        POIwithActiveEvents = new List<POI_Object>();
+        ActiveEvents = 0;
         if (gm == null)
         {
             gm = this;
@@ -32,48 +37,81 @@ public class GM : MonoBehaviour
     void Update()
     {
         switch (state)
-        {
-            case GameState.Init:
-                {
-                    
-                }
-                break;
+        {           
             case GameState.Start:
                 {
                     
                 }
                 break;
+            case GameState.Session:
+                {
+                    
+                }
+                break;
         
         }
-
+        ActiveTurbine();
     }
 
     
-    public void AddActiveEvent(POI_Object poi)
+    public void AddActiveEvent()
     {
-        POIwithActiveEvents.Add(poi);
+        ActiveEvents++;
     }
 
-    public void DeleteActiveEvent(POI_Object poi)
+    public void AddActiveTurbine()
     {
-        if(POIwithActiveEvents.Exists(p => p.name == poi.name)) POIwithActiveEvents.Remove(poi);
+        ActiveTurbines++;
     }
 
-    public void FindAllEvents()
+    public void DeleteActiveEvent()
+    {
+        ActiveEvents--;
+    }
+
+    public void DeleteActiveTurbine()
+    {
+        ActiveTurbines--;
+    }
+
+   /* public void FindAllEvents()
     {
         foreach (POI_Object poi in PointsOfInterests)
         {
-            
+            if (poi.status == PoiStatus.Event) POIwithActiveEvents.Add(poi);
+            else if (POIwithActiveEvents.Exists(p => p.poiName == poi.poiName)) POIwithActiveEvents.Remove(poi);
         }
-    }
+    }*/
     private void Initialization()
     {
         GameObject[] temp = GameObject.FindGameObjectsWithTag("POI");
         foreach (GameObject poi in temp)
         {
-            PointsOfInterests.Add(poi.GetComponent<POI_Object>());        
+            PointsOfInterests.Add(poi.GetComponent<POI_Object>()); 
+            
         }
+        foreach (POI_Object poi in PointsOfInterests)
+        {
+            if (poi.poiName == "Tur") Turbines.Add(poi.gameObject.GetComponent<TurbineControlPOI>());
+            if (poi.poiName == "MC") MC = poi.GetComponent<MainComPOI>();
+        }
+
+        state = GameState.Start;
         
+    }
+
+    private void ActiveTurbine()
+    {
+        ActiveTurbines = 0;
+        foreach (TurbineControlPOI tur in Turbines)
+        {
+            if (tur.status != PoiStatus.Disabled) ActiveTurbines++;
+        }
+    }
+
+    public float GetSpeedMod()
+    {
+        return MC.speedMod;
     }
 
     //Отключение всех электро-ТИ
@@ -87,6 +125,6 @@ public class GM : MonoBehaviour
 
     public bool isMoreEventAvailable()
     {
-        return POIwithActiveEvents.Count < maxOfEvents;
+        return ActiveEvents < maxOfEvents;
     }
 }
