@@ -27,10 +27,10 @@ public class PlayerControl : MonoBehaviour
 	private bool nearLadder;
 	//[SerializeField]
 	private bool isGrounded;
-	private bool nearMiniGame;
+	private bool nearPOI;
 
 	//ссылки на другие объекты
-	MiniGame miniGame;
+	POI_Object poiObject;
 	
 	void Start()
     {
@@ -38,7 +38,7 @@ public class PlayerControl : MonoBehaviour
 		ch_transform = GetComponent<Transform>();
 		nearLadder = false;
 		isGrounded = true;
-		nearMiniGame = false;
+		nearPOI = false;
     }
 	
     void Update()
@@ -51,8 +51,8 @@ public class PlayerControl : MonoBehaviour
 		}
 		LadderControl();
 
-		if (nearMiniGame && Input.GetKeyDown(KeyCode.E)) {
-				miniGame.Init();
+		if (nearPOI && Input.GetKeyDown(KeyCode.E)) {
+				poiObject.Interacting();
 		}		
 	}
 
@@ -63,10 +63,10 @@ public class PlayerControl : MonoBehaviour
 		if (other.gameObject.CompareTag("Ground")) {
 			isGrounded = true;
 		}
-		if (other.gameObject.CompareTag("MiniGame")) {
-			if (miniGame == null) {
-				miniGame = other.gameObject.GetComponent<MiniGame>();
-				nearMiniGame = true;
+		if (other.gameObject.CompareTag("POI")) {
+			if (poiObject == null) {
+				poiObject = other.gameObject.GetComponent<POI_Object>();
+				nearPOI = true;
 			}
 			//miniGame.Init();
 		}
@@ -79,11 +79,12 @@ public class PlayerControl : MonoBehaviour
 		if (other.gameObject.CompareTag("Ground")) {
 			isGrounded = false;
 		}
-		if (other.gameObject.CompareTag("MiniGame")) {
-			if (miniGame != null) {
-				miniGame.Close();
-				miniGame = null;
-				nearMiniGame = false;
+		if (other.gameObject.CompareTag("POI")) {
+			if (poiObject != null) {
+				poiObject.miniGame.Close();
+				//poiObject.Close();
+				poiObject = null;
+				nearPOI = false;
 			}
 
 			//miniGame.Init();

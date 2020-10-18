@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class MiniGame : MonoBehaviour
 {
+	protected POI_Object poi;
+
+	public void SetPoi(POI_Object poiObj) {
+		poi = poiObj;
+	}
+
 	// Start is called before the first frame update
 	void Start()
     {
