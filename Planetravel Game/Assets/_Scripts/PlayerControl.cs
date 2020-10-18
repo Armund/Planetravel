@@ -48,8 +48,11 @@ public class PlayerControl : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.Space) && !nearLadder && isGrounded) {
 			ch_rigidBody.AddForce(ch_transform.up * jumpForce);
 		}
-		
 		LadderControl();
+
+		if (nearMiniGame && Input.GetKeyDown(KeyCode.E)) {
+				miniGame.Init();
+		}		
 	}
 
 	private void OnTriggerEnter(Collider other) {
@@ -60,8 +63,10 @@ public class PlayerControl : MonoBehaviour
 			isGrounded = true;
 		}
 		if (other.gameObject.CompareTag("MiniGame")) {
-			miniGame = other.gameObject.GetComponent<MiniGame>();
-			nearMiniGame = true;
+			if (miniGame == null) {
+				miniGame = other.gameObject.GetComponent<MiniGame>();
+				nearMiniGame = true;
+			}
 			//miniGame.Init();
 		}
 	}
@@ -74,9 +79,11 @@ public class PlayerControl : MonoBehaviour
 			isGrounded = false;
 		}
 		if (other.gameObject.CompareTag("MiniGame")) {
-			miniGame.Close();
-			miniGame = null;
-			nearMiniGame = false;
+			if (miniGame != null) {
+				miniGame.Close();
+				miniGame = null;
+				nearMiniGame = false;
+			}
 
 			//miniGame.Init();
 		}
@@ -84,7 +91,7 @@ public class PlayerControl : MonoBehaviour
 
 	void LadderControl() {
 		if (nearLadder) {
-			moveVectorVertical = ch_transform.up * Input.GetAxis("Vertical") * speedMove * Time.deltaTime;
+			moveVectorVertical = ch_transform.up * Input.GetAxis("Vertical") * speedOnLadder * Time.deltaTime;
 			ch_rigidBody.position += moveVectorVertical;
 		}
 	}
