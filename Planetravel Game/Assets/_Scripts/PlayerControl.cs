@@ -25,6 +25,7 @@ public class PlayerControl : MonoBehaviour
 
 	//состояния
 	private bool nearLadder;
+	//[SerializeField]
 	private bool isGrounded;
 	private bool nearMiniGame;
 
