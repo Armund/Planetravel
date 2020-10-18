@@ -14,6 +14,10 @@ public class IsMatch : MiniGame
 	public Text result;
 
 	Image pictureToDelete;
+	Image pictureToDelete2;
+
+	//состояния
+	bool isStarted;
 
 	int[] imageValues = new int[2];
 
@@ -41,6 +45,7 @@ public class IsMatch : MiniGame
 		imageValues[0] = 0;
 		imageValues[1] = 0;
 		StartCoroutine(FirstPicture());
+		isStarted = true;
 	}
 
 	IEnumerator FirstPicture() {
@@ -50,7 +55,7 @@ public class IsMatch : MiniGame
 
 		yield return new WaitForSeconds(1);
 
-		PlaceImage(pictures[4], place1);
+		pictureToDelete2 = PlaceImage(pictures[4], place1);
 		rand = Random.Range(0, 4);
 		imageValues[1] = rand;
 		Destroy(pictureToDelete.gameObject);
@@ -58,11 +63,18 @@ public class IsMatch : MiniGame
 	}
 
 	override public void Close() {
-		canvas.gameObject.SetActive(false);
-		imageValues[0] = 0;
-		imageValues[1] = 0;
-		Destroy(pictureToDelete.gameObject);
-		Destroy(pictureToDelete.gameObject);
+		if (isStarted) {
+			canvas.gameObject.SetActive(false);
+			imageValues[0] = 0;
+			imageValues[1] = 0;
+			if (pictureToDelete != null) {
+				Destroy(pictureToDelete.gameObject);
+			}
+			if (pictureToDelete2 != null) {
+				Destroy(pictureToDelete2.gameObject);
+			}
+			isStarted = false;
+		}
 		//StartCoroutine(FirstPicture());
 	}
 
