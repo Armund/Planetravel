@@ -17,7 +17,7 @@ public class IsMatch : MiniGame
 	Image pictureToDelete2;
 
 	//состояния
-	bool isStarted;
+	//bool isStarted;
 
 	int[] imageValues = new int[2];
 
