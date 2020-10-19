@@ -10,7 +10,7 @@ public class Levers : MiniGame
 	public Sprite buttonDownSprite;
 
 	//состояния
-	bool isStarted;
+	//bool isStarted;
 
 	
 	public Text[] numbersTop = new Text[6];
@@ -32,6 +32,7 @@ public class Levers : MiniGame
     {
 		isStarted = false;
 		gameNumber = 0;
+		//Init();
 	}
 
 	override public void Init() {
