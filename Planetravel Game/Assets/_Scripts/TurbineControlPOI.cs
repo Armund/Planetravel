@@ -5,6 +5,7 @@ using UnityEngine;
 public class TurbineControlPOI : POI_Object
 {
     public GameObject TurbineFlames;
+    public bool isLostAllFuel;
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -36,7 +37,7 @@ public class TurbineControlPOI : POI_Object
                 break;
             case PoiStatus.Event:
                 {
-
+                    isInteractable = true;
                     PoiEvent();
 
                 }
@@ -49,12 +50,14 @@ public class TurbineControlPOI : POI_Object
                 break;
             case PoiStatus.AfterEvent:
                 {
+                    isInteractable = true;
                     ResetAfterEvent();
                 }
                 break;
         }
 
-       
+        NoFuel();
+        GotFuelAgain();
     }
 
     public override void PoiEventEffect()
@@ -89,5 +92,45 @@ public class TurbineControlPOI : POI_Object
         GM.gm.DeleteActiveEvent();
         NewStatus(PoiStatus.Active);
         EventDone = false;
+    }
+
+    public void NoFuel()
+    {
+        if (GM.gm.PS.fuel <= 0 && !isLostAllFuel)
+        {
+            if (status == PoiStatus.Event || status == PoiStatus.Disabled) GM.gm.DeleteActiveEvent();
+            NewStatus(PoiStatus.Disabled);
+            TurbineFlames.SetActive(false);
+            Sparkles.SetActive(false);
+            isInteractable = false;
+            isLostAllFuel = true;
+            miniGame.isStarted = false;
+            miniGame.Close();
+        }
+    }
+
+    public void GotFuelAgain()
+    {
+        if(isLostAllFuel && GM.gm.PS.fuel >0)
+        {
+            TurbineFlames.SetActive(true);
+            if (lastStatus == PoiStatus.Disabled)
+            {
+                isInteractable = true;
+                TurbineFlames.SetActive(false);
+            }
+            else if(lastStatus == PoiStatus.OnInteraction)
+            {
+                isInteractable = true;
+                Sparkles.SetActive(true);
+                TurbineFlames.SetActive(false);
+                GM.gm.AddActiveEvent();
+                NewStatus(PoiStatus.Event);
+                isLostAllFuel = false;
+                return;
+            }
+            status = lastStatus;
+            isLostAllFuel = false;
+        }
     }
 }

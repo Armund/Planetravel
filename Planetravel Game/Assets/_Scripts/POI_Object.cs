@@ -5,11 +5,13 @@ using UnityEngine;
 public enum PoiStatus { UnActive, Active, Disabled, Event, OnInteraction, AfterEvent }
 public class POI_Object : MonoBehaviour
 {
+    public bool ItemUser;
     protected MeshRenderer MR;
     public string poiName;
     public PoiStatus status;
     public PoiStatus lastStatus;
     protected bool isElectrical;
+    public bool isElecNow;
     [SerializeField]
     protected bool isInteractable;
     public float timeBeforeNextEvent;
@@ -55,8 +57,8 @@ public class POI_Object : MonoBehaviour
     {
         if (!isElectrical) return;
 
-        if (trig && status == PoiStatus.Disabled) status = lastStatus;
-        else if(!trig) NewStatus(PoiStatus.Disabled);
+        if (trig && status == PoiStatus.Disabled) { status = lastStatus; isElecNow = true; }
+        else if (!trig) { NewStatus(PoiStatus.Disabled); isElecNow = false; }
     }
 
     public void PoiEvent()
