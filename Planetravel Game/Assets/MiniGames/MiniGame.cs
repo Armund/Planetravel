@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MiniGame : MonoBehaviour
 {
+    [SerializeField]
 	protected POI_Object poi;
 
 	public void SetPoi(POI_Object poiObj) {

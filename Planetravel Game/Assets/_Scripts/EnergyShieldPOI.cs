@@ -2,22 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//Клас Генератора Электричества
-public class GenPOI : POI_Object
+public class EnergyShieldPOI : POI_Object
 {
-    public Material genOnMat;
+    public Material FuelMat;
     public Material genOffMat;
-
+    public GameObject EnergySphere;
+    public GameObject LeftShield;
+    public GameObject RightShield;
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
-        MR.material = genOnMat;
-        poiName = "Generator";
-        isElectrical = false;
+        MR = EnergySphere.GetComponent<MeshRenderer>();
+        MR.material = FuelMat;
+        poiName = "EShield";
+        isElectrical = true;
+        LeftShield.SetActive(true);
+        RightShield.SetActive(true);
         lastStatus = PoiStatus.Active;
         status = PoiStatus.Active;
         timeBeforeNextEvent = Random.Range(minTimeBeforeEvent, maxTImeBeforeEvent);
+
     }
 
     // Update is called once per frame
@@ -27,28 +32,28 @@ public class GenPOI : POI_Object
         {
             case PoiStatus.Active:
                 {
-                    if(GM.gm.isMoreEventAvailable()) TickToEvent();
-                    
+                    if (GM.gm.isMoreEventAvailable()) TickToEvent();
+
                 }
                 break;
             case PoiStatus.Disabled:
                 {
-                    
+
                 }
                 break;
             case PoiStatus.Event:
                 {
 
                     PoiEvent();
-                    
+
                 }
                 break;
             case PoiStatus.OnInteraction:
                 {
                     isInteractable = false;
-                    MiniGameInteraction();                   
+                    MiniGameInteraction();
                 }
-            break;
+                break;
             case PoiStatus.AfterEvent:
                 {
                     ResetAfterEvent();
@@ -57,30 +62,25 @@ public class GenPOI : POI_Object
         }
     }
 
-  
-
-    
-
     public override void PoiEventEffect()
     {
-        EGenerator(false);
-        MR.material = genOffMat;
         repairCounter = 0;
         NewStatus(PoiStatus.Disabled);
+        RightShield.SetActive(false);
+        LeftShield.SetActive(false);
+        MR.material = genOffMat;
         Sparkles.SetActive(false);
     }
 
     public override void Interacting()
     {
         if (isInteractable)
-        {                       
+        {
             NewStatus(PoiStatus.OnInteraction);
-			miniGame.Init();
-            //Вот тут вызов миниигры
-        }       
+            miniGame.Init();
+        }
     }
 
-    //Взаимодействие с миниигрой работает через функцию SetEventDone
     public override void MiniGameInteraction()
     {
         if (!EventDone) return;
@@ -92,17 +92,11 @@ public class GenPOI : POI_Object
         Sparkles.SetActive(false);
         isInteractable = false;
         timeBeforeNextEvent = Random.Range(minTimeBeforeEvent, maxTImeBeforeEvent);
-        EGenerator(true);
-        MR.material = genOnMat;
+        MR.material = FuelMat;
         GM.gm.DeleteActiveEvent();
+        LeftShield.SetActive(true);
+        RightShield.SetActive(true);
         NewStatus(PoiStatus.Active);
-        EventDone = false;    
+        EventDone = false;
     }
-
-    public void EGenerator(bool trig)
-    {
-        GM.gm.Electricity = trig;
-        GM.gm.OnElectricity();
-    }
-
 }

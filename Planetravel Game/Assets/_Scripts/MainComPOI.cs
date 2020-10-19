@@ -12,6 +12,7 @@ public class MainComPOI : POI_Object
     // Start is called before the first frame update
     protected override void Start()
     {
+
         base.Start();
         poiName = "MC";
         isElectrical = true;
@@ -49,8 +50,7 @@ public class MainComPOI : POI_Object
                 break;
             case PoiStatus.OnInteraction:
                 {
-                    //временное
-                    SetEventDone();
+                    isInteractable = false;
                     MiniGameInteraction();
                 }
                 break;
@@ -61,7 +61,7 @@ public class MainComPOI : POI_Object
                 break;
         }
 
-        Interacting();
+       
     }
 
     public void ChangingWay()
@@ -73,10 +73,10 @@ public class MainComPOI : POI_Object
 
     public override void Interacting()
     {
-        if (Input.GetKeyDown(KeyCode.M) && isInteractable)
+        if (isInteractable)
         {
             NewStatus(PoiStatus.OnInteraction);
-            //Вот тут вызов миниигры
+            miniGame.Init();
         }
     }
 

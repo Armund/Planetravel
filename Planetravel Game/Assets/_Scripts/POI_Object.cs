@@ -101,6 +101,7 @@ public class POI_Object : MonoBehaviour
     public void EventLosing()
     {
         status = lastStatus;
+        isInteractable = true;
     }
 
     public void NewStatus(PoiStatus st)
