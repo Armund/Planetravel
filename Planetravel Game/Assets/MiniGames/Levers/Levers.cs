@@ -5,13 +5,13 @@ using UnityEngine.UI;
 
 public class Levers : MiniGame
 {
-	public Canvas canvas;
+    public Canvas can;
 	public Sprite buttonUpSprite;
 	public Sprite buttonDownSprite;
 
 	//состояния
 	bool isStarted;
-
+    bool isWin;
 	
 	public Text[] numbersTop = new Text[6];
 	public Text[] numbersBot = new Text[6];
@@ -31,12 +31,13 @@ public class Levers : MiniGame
 	void Start()
     {
 		isStarted = false;
+        isWin = false;
 		gameNumber = 0;
 	}
 
 	override public void Init() {
 		if (!isStarted) {
-			canvas.gameObject.SetActive(true);
+			can.gameObject.SetActive(true);
 
 			//int rand = Random.Range(0, 10);
 			if (gameNumber > LeversPresets.presetsNumber) {
@@ -71,8 +72,9 @@ public class Levers : MiniGame
 
 	override public void Close() {
 		if (isStarted) {
-			canvas.gameObject.SetActive(false);
-			poi.EventLosing();
+			can.gameObject.SetActive(false);
+			if(!isWin) poi.EventLosing();
+            isWin = false;
 			isStarted = false;
 		}
 	}
@@ -88,8 +90,9 @@ public class Levers : MiniGame
 		if (IsGameOver()) {
 			goalTopText.text = "WIN";
 			poi.SetEventDone();
+            isWin = true;
 		}
-		//Debug.Log("Button " + leverNumber + " pressed");
+		Debug.Log("Button " + leverNumber + " pressed");
 	}
 
 	private bool IsGameOver () {

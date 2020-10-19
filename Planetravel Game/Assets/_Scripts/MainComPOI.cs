@@ -12,6 +12,7 @@ public class MainComPOI : POI_Object
     // Start is called before the first frame update
     protected override void Start()
     {
+
         base.Start();
         poiName = "MC";
         isElectrical = true;

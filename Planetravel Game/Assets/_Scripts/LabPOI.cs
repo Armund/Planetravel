@@ -21,7 +21,7 @@ public class LabPOI : POI_Object
         base.Start();
         poiName = "Lab";
         isElectrical = true;
-
+        EventDone = false;
         lastStatus = PoiStatus.UnActive;
         status = PoiStatus.UnActive;
         isInteractable = true;
@@ -45,8 +45,7 @@ public class LabPOI : POI_Object
                 break;
             case PoiStatus.OnInteraction:
                 {
-                    //временное
-                    SetEventDone();
+                    
                     MiniGameInteraction();
                 }
                 break;
@@ -67,7 +66,7 @@ public class LabPOI : POI_Object
                 break;
         }
 
-        Interacting();
+       
     }
 
     //Заполнения контейнера с топливом. Будучи заполненым, контейнер какое-то время еще будет заполнятся, пока не сломается.
@@ -98,13 +97,14 @@ public class LabPOI : POI_Object
 
     public override void Interacting()
     {
-        if(Input.GetKeyDown(KeyCode.L) && isInteractable)
+        if(isInteractable)
         {
             if (status == PoiStatus.UnActive)
             {
                 NewStatus(PoiStatus.OnInteraction);
+                miniGame.Init();
                 return;
-                //Вызов миниигры
+                
             }
             else if (status == PoiStatus.Event)
             {

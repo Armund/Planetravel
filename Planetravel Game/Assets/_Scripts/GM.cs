@@ -30,14 +30,19 @@ public class GM : MonoBehaviour
         }
 
         DontDestroyOnLoad(gameObject);
-        if(state == GameState.Init) Initialization();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         switch (state)
-        {           
+        {
+            case GameState.Init:
+                {
+                   Initialization();
+                }
+                break;
             case GameState.Start:
                 {
                     
