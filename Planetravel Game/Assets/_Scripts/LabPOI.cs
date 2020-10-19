@@ -45,7 +45,7 @@ public class LabPOI : POI_Object
                 break;
             case PoiStatus.OnInteraction:
                 {
-                    
+                    isInteractable = false;
                     MiniGameInteraction();
                 }
                 break;

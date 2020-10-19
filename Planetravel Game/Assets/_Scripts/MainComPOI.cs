@@ -50,8 +50,7 @@ public class MainComPOI : POI_Object
                 break;
             case PoiStatus.OnInteraction:
                 {
-                    //временное
-                    SetEventDone();
+                    isInteractable = false;
                     MiniGameInteraction();
                 }
                 break;

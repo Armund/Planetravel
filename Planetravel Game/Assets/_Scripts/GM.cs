@@ -12,6 +12,9 @@ public class GM : MonoBehaviour
     public List<POI_Object> PointsOfInterests = new List<POI_Object>();
     public List<TurbineControlPOI> Turbines = new List<TurbineControlPOI>();
     public MainComPOI MC;
+    public EnergyShieldPOI ES;
+    public GameObject Meteorites;
+    public PlanetShip PS;
     public int ActiveEvents;
     public int ActiveTurbines;
    // public List<POI_Object> POIwithActiveEvents;
@@ -58,7 +61,11 @@ public class GM : MonoBehaviour
         ActiveTurbine();
     }
 
-    
+    public void ShipGetsDamage(int damage)
+    {
+        PS.HP -= damage;
+    }
+
     public void AddActiveEvent()
     {
         ActiveEvents++;
@@ -99,6 +106,7 @@ public class GM : MonoBehaviour
         {
             if (poi.poiName == "Tur") Turbines.Add(poi.gameObject.GetComponent<TurbineControlPOI>());
             if (poi.poiName == "MC") MC = poi.GetComponent<MainComPOI>();
+            if (poi.poiName == "ES") ES = poi.GetComponent<EnergyShieldPOI>();
         }
 
         state = GameState.Start;
