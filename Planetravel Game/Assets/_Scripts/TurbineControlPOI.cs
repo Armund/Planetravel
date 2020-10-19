@@ -55,7 +55,7 @@ public class TurbineControlPOI : POI_Object
                 break;
         }
 
-        Interacting();
+       
     }
 
     public override void PoiEventEffect()
@@ -68,10 +68,10 @@ public class TurbineControlPOI : POI_Object
 
     public override void Interacting()
     {
-        if (Input.GetKeyDown(KeyCode.T) && isInteractable)
+        if (isInteractable)
         {
             NewStatus(PoiStatus.OnInteraction);
-            //Вот тут вызов миниигры
+            miniGame.Init();
         }
     }
 

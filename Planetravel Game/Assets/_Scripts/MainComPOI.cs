@@ -62,7 +62,7 @@ public class MainComPOI : POI_Object
                 break;
         }
 
-        Interacting();
+       
     }
 
     public void ChangingWay()
@@ -74,10 +74,10 @@ public class MainComPOI : POI_Object
 
     public override void Interacting()
     {
-        if (Input.GetKeyDown(KeyCode.M) && isInteractable)
+        if (isInteractable)
         {
             NewStatus(PoiStatus.OnInteraction);
-            //Вот тут вызов миниигры
+            miniGame.Init();
         }
     }
 
