@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Node
+public class NodeGraph
 {
 	public int cellNumber;
 	public List<int> availableCells;

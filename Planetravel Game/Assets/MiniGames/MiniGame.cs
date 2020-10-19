@@ -6,6 +6,7 @@ public class MiniGame : MonoBehaviour
 {
     [SerializeField]
 	protected POI_Object poi;
+	protected bool isStarted;
 
 	public void SetPoi(POI_Object poiObj) {
 		poi = poiObj;
@@ -25,4 +26,5 @@ public class MiniGame : MonoBehaviour
 
 	virtual public void Init() { }
 	virtual public void Close() { }
+	//virtual public bool IsGameOver() { return true; }
 }

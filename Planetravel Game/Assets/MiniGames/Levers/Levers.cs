@@ -10,8 +10,8 @@ public class Levers : MiniGame
 	public Sprite buttonDownSprite;
 
 	//состояния
-	bool isStarted;
-    bool isWin;
+	//bool isStarted;
+  bool isWin;
 	
 	public Text[] numbersTop = new Text[6];
 	public Text[] numbersBot = new Text[6];
@@ -33,6 +33,7 @@ public class Levers : MiniGame
 		isStarted = false;
         isWin = false;
 		gameNumber = 0;
+		//Init();
 	}
 
 	override public void Init() {

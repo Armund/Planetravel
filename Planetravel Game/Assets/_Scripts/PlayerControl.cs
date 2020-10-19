@@ -25,9 +25,14 @@ public class PlayerControl : MonoBehaviour
 
 	//состояния
 	private bool nearLadder;
-	//[SerializeField]
 	private bool isGrounded;
 	private bool nearPOI;
+	[SerializeField]
+	public bool hasItem;
+
+	//переносимый предмет
+	private GameObject currentItem;
+	int itemCode;
 
 	//ссылки на другие объекты
 	POI_Object poiObject;
@@ -39,6 +44,7 @@ public class PlayerControl : MonoBehaviour
 		nearLadder = false;
 		isGrounded = true;
 		nearPOI = false;
+		hasItem = false;
     }
 	
     void Update()
@@ -53,7 +59,10 @@ public class PlayerControl : MonoBehaviour
 
 		if (nearPOI && Input.GetKeyDown(KeyCode.E)) {
 				poiObject.Interacting();
-		}		
+		}
+		if (hasItem && Input.GetKeyDown(KeyCode.G)) {
+			UseItem();
+		}
 	}
 
 	private void OnTriggerEnter(Collider other) {
@@ -109,5 +118,16 @@ public class PlayerControl : MonoBehaviour
 		//Debug.Log("ОТЛИПЛИ");
 		nearLadder = false;
 		ch_rigidBody.useGravity = true;
+	}
+
+	public void GetItem(GameObject item, int code) {
+		currentItem = Instantiate(item, ch_transform.position + new Vector3(0, 0.6f, -0.2f), Quaternion.identity, ch_transform);
+		itemCode = code;
+		hasItem = true;
+	}
+
+	public void UseItem() {
+		Destroy(currentItem.gameObject);
+		hasItem = false;
 	}
 }
