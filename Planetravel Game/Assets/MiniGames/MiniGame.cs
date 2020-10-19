@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MiniGame : MonoBehaviour
 {
+    [SerializeField]
 	protected POI_Object poi;
 	protected bool isStarted;
 

@@ -11,6 +11,8 @@ TagManager:
   - LadderTop
   - Ground
   - MiniGame
+  - EnergyShield
+  - Meteor
   layers:
   - Default
   - TransparentFX
