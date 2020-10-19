@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum GameState { Init, Tutorial, Start, Session, LoseState, WinState, End }
 public class GM : MonoBehaviour
 {
-    
+    public PlayerControl PC;
     public bool Electricity;
     public GameState state = GameState.Init;
     public static GM gm = null;
@@ -32,7 +33,7 @@ public class GM : MonoBehaviour
             Destroy(gameObject);
         }
 
-        DontDestroyOnLoad(gameObject);
+      //  DontDestroyOnLoad(gameObject);
         
     }
 
@@ -46,17 +47,23 @@ public class GM : MonoBehaviour
                    Initialization();
                 }
                 break;
-            case GameState.Start:
-                {
-                    
-                }
-                break;
             case GameState.Session:
                 {
-                    
+                    if (PS.WinCondition()) state = GameState.WinState;
+                    else if (PS.LoseCondition()) state = GameState.LoseState;
                 }
                 break;
-        
+            case GameState.WinState:
+                {
+                    SceneManager.LoadScene("WinScene", LoadSceneMode.Single);
+                }
+                break;
+            case GameState.LoseState:
+                {
+                    SceneManager.LoadScene("LoseScene", LoadSceneMode.Single);
+                }
+                break;
+
         }
         ActiveTurbine();
     }
@@ -109,7 +116,7 @@ public class GM : MonoBehaviour
             if (poi.poiName == "ES") ES = poi.GetComponent<EnergyShieldPOI>();
         }
 
-        state = GameState.Start;
+        state = GameState.Session;
         
     }
 
@@ -134,6 +141,21 @@ public class GM : MonoBehaviour
         {
             poi.SwitchElectricity(Electricity);
         }
+    }
+
+    public bool isGotFuel()
+    {
+        return PC.hasItem && PC.itemCode == 1;
+    }
+
+    public bool isGotFireEST()
+    {
+        return PC.hasItem && PC.itemCode == 0;
+    }
+
+    public void ReplenishFuel()
+    {
+        PS.fuel = PS.maxFuel;
     }
 
     public bool isMoreEventAvailable()

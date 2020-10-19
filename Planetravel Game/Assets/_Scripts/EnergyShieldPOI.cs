@@ -15,6 +15,7 @@ public class EnergyShieldPOI : POI_Object
         base.Start();
         MR = EnergySphere.GetComponent<MeshRenderer>();
         MR.material = FuelMat;
+        isElecNow = true;
         poiName = "EShield";
         isElectrical = true;
         LeftShield.SetActive(true);
@@ -33,17 +34,26 @@ public class EnergyShieldPOI : POI_Object
             case PoiStatus.Active:
                 {
                     if (GM.gm.isMoreEventAvailable()) TickToEvent();
-
+                    LeftShield.SetActive(true);
+                    RightShield.SetActive(true);
+                    MR.material = FuelMat;
                 }
                 break;
             case PoiStatus.Disabled:
                 {
-
+                    isInteractable = (isElecNow) ? true : false;
+                    RightShield.SetActive(false);
+                    LeftShield.SetActive(false);
+                    MR.material = genOffMat;
+                    Sparkles.SetActive(false);
                 }
                 break;
             case PoiStatus.Event:
                 {
 
+                    LeftShield.SetActive(true);
+                    RightShield.SetActive(true);
+                    MR.material = FuelMat;
                     PoiEvent();
 
                 }
