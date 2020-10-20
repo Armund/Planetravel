@@ -24,7 +24,7 @@ public class IsMatch : MiniGame
 	// Start is called before the first frame update
 	void Start()
     {
-		//StartCoroutine(FirstPicture());
+		Init();
 	}
 
     // Update is called once per frame
@@ -41,11 +41,13 @@ public class IsMatch : MiniGame
 	}
 
 	override public void Init() {
-		canvas.gameObject.SetActive(true);
-		imageValues[0] = 0;
-		imageValues[1] = 0;
-		StartCoroutine(FirstPicture());
-		isStarted = true;
+		if (!isStarted) {
+			canvas.gameObject.SetActive(true);
+			imageValues[0] = 0;
+			imageValues[1] = 0;
+			isStarted = true;
+			StartCoroutine(FirstPicture());
+		}
 	}
 
 	IEnumerator FirstPicture() {
