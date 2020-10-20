@@ -16,7 +16,7 @@ public class Labyrinth : MiniGame
 	int finishPoint;
 
 	public Sprite spriteBlue;
-
+    bool isWin;
 	List<int> currentPath = new List<int>();
 
 	//LineRenderer lRend;
@@ -29,7 +29,7 @@ public class Labyrinth : MiniGame
     void Start()
     {
 		gameNumber = 0;
-		Init();
+		
 	}
 
 	override public void Init() {
@@ -65,10 +65,11 @@ public class Labyrinth : MiniGame
 	}
 
 	override public void Close() {
-		if (isStarted) {
-			canvas.gameObject.SetActive(false);
-			poi.EventLosing();
+        canvas.gameObject.SetActive(false);
+        if (isStarted) {
+            if (!isWin) poi.EventLosing();
 			isStarted = false;
+            isWin = false;
 		}
 	}
 
@@ -92,7 +93,9 @@ public class Labyrinth : MiniGame
 
 		if (IsGameOver()) {
 			winText.text = "WIN";
-		}
+            poi.SetEventDone();
+            isWin = true;
+        }
 	}
 
 	private bool IsGameOver() {
