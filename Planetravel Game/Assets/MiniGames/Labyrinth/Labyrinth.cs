@@ -29,7 +29,7 @@ public class Labyrinth : MiniGame
     void Start()
     {
 		gameNumber = 0;
-		//Init();
+		Init();
 	}
 
 	override public void Init() {
