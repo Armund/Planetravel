@@ -9,7 +9,7 @@ public class FireMaker : MonoBehaviour
     public float cooldownSetter;
     public int randomic
     {
-        get { return Random.Range(0, 6); }
+        get { return Random.Range(0, 5); }
     }
     public int r;
     public int maxFires;

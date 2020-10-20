@@ -7,8 +7,8 @@ public class BoolSquare : MiniGame
 {
 	public Canvas canvas;
 	public Text winText;
-
-	public Image[] lightImages = new Image[6];
+    bool isWin;
+    public Image[] lightImages = new Image[6];
 	public Sprite redLight;
 	public Sprite greenLight;
 
@@ -48,10 +48,12 @@ public class BoolSquare : MiniGame
 	}
 
 	override public void Close() {
-		if (isStarted) {
-			canvas.gameObject.SetActive(false);
-			poi.EventLosing();
-			isStarted = false;
+        canvas.gameObject.SetActive(false);
+        if (isStarted) {
+
+            if (!isWin) poi.EventLosing();
+            isStarted = false;
+            isWin = false;
 		}
 	}
 
@@ -77,7 +79,9 @@ public class BoolSquare : MiniGame
 		}
 		if (IsGameOver()) {
 			winText.text = "WIN";
-			winText.color = Color.green;
+            poi.SetEventDone();
+            winText.color = Color.green;
+            isWin = true;
 		}
 	}
 

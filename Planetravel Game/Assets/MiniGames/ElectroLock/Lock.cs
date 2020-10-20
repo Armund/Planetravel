@@ -9,7 +9,7 @@ public class Lock : MiniGame
 	public Text codeText;
 	public Text winText;
 	public Text currentCodeText;
-
+    public bool isWin;
 	List<int> goal = new List<int>();
 	List<int> currentCode = new List<int>();
 
@@ -37,10 +37,12 @@ public class Lock : MiniGame
 	}
 
 	override public void Close() {
-		if (isStarted) {
-			canvas.gameObject.SetActive(false);
-			poi.EventLosing();
+        canvas.gameObject.SetActive(false);
+        if (isStarted) {
+			
+			if(!isWin) poi.EventLosing();
 			isStarted = false;
+            isWin = false;
 		}
 	}
 
@@ -49,7 +51,9 @@ public class Lock : MiniGame
 		currentCodeText.text += but.ToString();
 		if (IsGameOver()) {
 			winText.text = "UNLOCKED";
-			winText.color = Color.green;
+            poi.SetEventDone();
+            isWin = true;
+            winText.color = Color.green;
 		} else if (currentCode.Count == 4) {
 			currentCodeText.text = "";
 			currentCode.Clear();
