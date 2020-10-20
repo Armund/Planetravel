@@ -14,6 +14,7 @@ public class LabPOI : POI_Object
 
     public GameObject container;
     public GameObject fuelBattery;
+    public GameObject fuelBatteryPref;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -125,6 +126,7 @@ public class LabPOI : POI_Object
     public void GetFuel()
     {
         fuelBattery.SetActive(false);
+        GM.gm.PC.GetItem(fuelBatteryPref, 1);
     }
 
 

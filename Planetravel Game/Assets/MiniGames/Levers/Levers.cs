@@ -72,8 +72,8 @@ public class Levers : MiniGame
 	}
 
 	override public void Close() {
-		if (isStarted) {
-			can.gameObject.SetActive(false);
+        can.gameObject.SetActive(false);
+        if (isStarted) {		
 			if(!isWin) poi.EventLosing();
             isWin = false;
 			isStarted = false;

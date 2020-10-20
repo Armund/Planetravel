@@ -16,6 +16,7 @@ public class MainComPOI : POI_Object
         base.Start();
         poiName = "MC";
         isElectrical = true;
+        isElecNow = true;
         lastStatus = PoiStatus.Active;
         directionMod = 1; 
         speedMod = 1;
@@ -38,12 +39,12 @@ public class MainComPOI : POI_Object
                 break;
             case PoiStatus.Disabled:
                 {
-
+                    isInteractable = (isElecNow) ? true : false;
                 }
                 break;
             case PoiStatus.Event:
                 {
-
+                    isInteractable = true;
                     ChangingWay();
 
                 }

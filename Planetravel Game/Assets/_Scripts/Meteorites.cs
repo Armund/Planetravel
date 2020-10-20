@@ -25,7 +25,7 @@ public class Meteorites : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        cooldownBetweenMeteorites = cooldownSetter;
     }
 
     // Update is called once per frame

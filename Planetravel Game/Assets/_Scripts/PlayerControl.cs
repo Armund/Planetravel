@@ -24,15 +24,19 @@ public class PlayerControl : MonoBehaviour
 	//Vector3 zPosition = new Vector3(1, 1, 0);
 
 	//состояния
+    [SerializeField]
 	private bool nearLadder;
+    [SerializeField]
 	private bool isGrounded;
+    [SerializeField]
 	private bool nearPOI;
-	[SerializeField]
-	public bool hasItem;
 
+    [SerializeField]
+	public bool hasItem;
+    
 	//переносимый предмет
 	private GameObject currentItem;
-	int itemCode;
+	public int itemCode;
 
 	//ссылки на другие объекты
 	POI_Object poiObject;
@@ -60,9 +64,7 @@ public class PlayerControl : MonoBehaviour
 		if (nearPOI && Input.GetKeyDown(KeyCode.E)) {
 				poiObject.Interacting();
 		}
-		if (hasItem && Input.GetKeyDown(KeyCode.G)) {
-			UseItem();
-		}
+		
 	}
 
 	private void OnTriggerEnter(Collider other) {
@@ -90,7 +92,7 @@ public class PlayerControl : MonoBehaviour
 		}
 		if (other.gameObject.CompareTag("POI")) {
 			if (poiObject != null) {
-				poiObject.miniGame.Close();
+				if(!poiObject.ItemUser) poiObject.miniGame.Close();
 				//poiObject.Close();
 				poiObject = null;
 				nearPOI = false;
@@ -120,13 +122,18 @@ public class PlayerControl : MonoBehaviour
 		ch_rigidBody.useGravity = true;
 	}
 
-	public void GetItem(GameObject item, int code) {
-		currentItem = Instantiate(item, ch_transform.position + new Vector3(0, 0.6f, -0.2f), Quaternion.identity, ch_transform);
-		itemCode = code;
-		hasItem = true;
+	public void GetItem(GameObject item, int code)
+    {
+        if (currentItem != null) UseItem();
+        
+            currentItem = Instantiate(item, ch_transform.position + new Vector3(+0.2f, 0.6f, 0), Quaternion.identity, ch_transform);
+            itemCode = code;
+            hasItem = true;
+     
 	}
 
-	public void UseItem() {
+	public void UseItem()
+    {
 		Destroy(currentItem.gameObject);
 		hasItem = false;
 	}

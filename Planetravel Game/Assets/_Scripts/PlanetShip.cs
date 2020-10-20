@@ -1,13 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlanetShip : MonoBehaviour
 {
+    public Scrollbar HPbar;
+    public Scrollbar FuelBar;
+    public Text PtoD;
     public float maxHP;
     public float HP;
     public float maxFuel;
     public float fuel;
+    public float fuelWastingSpeed;
     public float parsecToDestination;
     public float parsecFromStartPoint;
     public float speed;
@@ -33,6 +38,7 @@ public class PlanetShip : MonoBehaviour
     {
         SetSpeed();
         Travel();
+        SetUI();
     }
 
     public void SetSpeed()
@@ -43,5 +49,24 @@ public class PlanetShip : MonoBehaviour
     public void Travel()
     {
         parsecFromStartPoint += speed * Time.deltaTime;
+        fuel -= fuelWastingSpeed * Time.deltaTime;
+        if (fuel <= 0.0001f) fuel = 0f;
+    }
+
+    public void SetUI()
+    {
+        HPbar.size = HP / maxHP;
+        FuelBar.size = fuel / maxFuel;
+        PtoD.text = "Parsec left to the destination\n" + ((int)(parsecToDestination - parsecFromStartPoint)).ToString();
+    }
+
+    public bool WinCondition()
+    {
+        return (parsecToDestination - parsecFromStartPoint) <= 0;
+    }
+
+    public bool LoseCondition()
+    {
+        return (HP <= 0);
     }
 }
