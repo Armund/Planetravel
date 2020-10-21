@@ -45,7 +45,7 @@ public class EnergyShieldPOI : POI_Object
                     RightShield.SetActive(false);
                     LeftShield.SetActive(false);
                     MR.material = genOffMat;
-                    Sparkles.SetActive(false);
+                    WarningSign.SetActive(false);
                 }
                 break;
             case PoiStatus.Event:
@@ -78,8 +78,9 @@ public class EnergyShieldPOI : POI_Object
         NewStatus(PoiStatus.Disabled);
         RightShield.SetActive(false);
         LeftShield.SetActive(false);
+        WarningSign.SetActive(false);
         MR.material = genOffMat;
-        Sparkles.SetActive(false);
+        WarningSign.SetActive(false);
     }
 
     public override void Interacting()
@@ -94,12 +95,12 @@ public class EnergyShieldPOI : POI_Object
     public override void MiniGameInteraction()
     {
         if (!EventDone) return;
-        else { NewStatus(PoiStatus.AfterEvent); EventDone = false; }
+        else { NewStatus(PoiStatus.AfterEvent); EventDone = false; WarningSign.SetActive(false); }
     }
 
     public override void ResetAfterEvent()
     {
-        Sparkles.SetActive(false);
+        WarningSign.SetActive(false);
         isInteractable = false;
         timeBeforeNextEvent = Random.Range(minTimeBeforeEvent, maxTImeBeforeEvent);
         MR.material = FuelMat;

@@ -17,7 +17,7 @@ public class POI_Object : MonoBehaviour
     public float timeBeforeNextEvent;
     public float minTimeBeforeEvent;
     public float maxTImeBeforeEvent;
-    public GameObject Sparkles;
+    public GameObject WarningSign;
     public bool EventDone;
     public float timeForRepair;
     public float repairCounter = 0;
@@ -45,7 +45,7 @@ public class POI_Object : MonoBehaviour
         else
         {
             isInteractable = true;
-            Sparkles.SetActive(true);
+            WarningSign.SetActive(true);
             repairCounter = 0;
             GM.gm.AddActiveEvent();
             NewStatus(PoiStatus.Event);

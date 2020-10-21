@@ -67,7 +67,7 @@ public class GenPOI : POI_Object
         MR.material = genOffMat;
         repairCounter = 0;
         NewStatus(PoiStatus.Disabled);
-        Sparkles.SetActive(false);
+        WarningSign.SetActive(false);
     }
 
     public override void Interacting()
@@ -84,12 +84,12 @@ public class GenPOI : POI_Object
     public override void MiniGameInteraction()
     {
         if (!EventDone) return;
-        else { NewStatus(PoiStatus.AfterEvent); EventDone = false; }
+        else { NewStatus(PoiStatus.AfterEvent); EventDone = false; WarningSign.SetActive(false); }
     }
 
     public override void ResetAfterEvent()
     {
-        Sparkles.SetActive(false);
+        WarningSign.SetActive(false);
         isInteractable = false;
         timeBeforeNextEvent = Random.Range(minTimeBeforeEvent, maxTImeBeforeEvent);
         EGenerator(true);
