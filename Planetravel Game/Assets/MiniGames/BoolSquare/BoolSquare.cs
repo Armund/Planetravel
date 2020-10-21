@@ -21,6 +21,15 @@ public class BoolSquare : MiniGame
 		//Init();
     }
 
+	private void Update() {
+		if (Input.GetKeyDown(KeyCode.J)) {
+			//Init();
+		}
+		if (Input.GetKeyDown(KeyCode.K)) {
+			//Close();
+		}
+	}
+
 	public override void Init() {
 		if (!isStarted) {
 			canvas.gameObject.SetActive(true);
@@ -79,7 +88,10 @@ public class BoolSquare : MiniGame
 		}
 		if (IsGameOver()) {
 			winText.text = "WIN";
-            poi.SetEventDone();
+			if (poi != null) {
+				poi.SetEventDone();
+			}
+			StartCoroutine(CloseCoroutine());
             winText.color = Color.green;
             isWin = true;
 		}
