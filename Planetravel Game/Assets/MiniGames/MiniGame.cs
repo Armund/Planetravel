@@ -6,7 +6,7 @@ public class MiniGame : MonoBehaviour
 {
     [SerializeField]
 	protected POI_Object poi;
-	public bool isStarted;
+	public bool isStarted = false;
 
 	public void SetPoi(POI_Object poiObj) {
 		poi = poiObj;

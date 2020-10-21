@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Labyrinth : MiniGame
-{
+public class Labyrinth : MiniGame {
 	public Canvas canvas;
 	public Text winText;
 
@@ -16,7 +15,7 @@ public class Labyrinth : MiniGame
 	int finishPoint;
 
 	public Sprite spriteBlue;
-    bool isWin;
+	bool isWin;
 	List<int> currentPath = new List<int>();
 
 	//LineRenderer lRend;
@@ -25,12 +24,24 @@ public class Labyrinth : MiniGame
 	List<Image> lineDrawn;
 
 	int gameNumber;
-	
-    void Start()
-    {
+
+	void Start() {
 		gameNumber = 0;
-		
+		//isStarted = false;
+
+		lineDrawn = new List<Image>();
 	}
+
+	private void Update() {
+		if (Input.GetKeyDown(KeyCode.J)) {
+			//Init();
+		}
+		if (Input.GetKeyDown(KeyCode.K)) {
+			//Close();
+		}
+	}
+
+
 
 	override public void Init() {
 		if (!isStarted) {
@@ -56,20 +67,26 @@ public class Labyrinth : MiniGame
 			}
 
 			currentCell = nodes[startPoint];
+			currentPath.Clear();
 			currentPath.Add(startPoint);
 
-			lineDrawn = new List<Image>();
+			//lineDrawn = new List<Image>();
+
+			DrawLine();
+			winText.text = "";
 
 			isStarted = true;
 		}
 	}
 
 	override public void Close() {
-        canvas.gameObject.SetActive(false);
-        if (isStarted) {
-            if (!isWin) poi.EventLosing();
+		canvas.gameObject.SetActive(false);
+		if (isStarted) {
+			if (!isWin && poi != null) {
+				poi.EventLosing();
+			}
 			isStarted = false;
-            isWin = false;
+			isWin = false;
 		}
 	}
 
@@ -93,9 +110,11 @@ public class Labyrinth : MiniGame
 
 		if (IsGameOver()) {
 			winText.text = "WIN";
-            poi.SetEventDone();
-            isWin = true;
-        }
+			if (poi != null) {
+				poi.SetEventDone();
+			}
+			isWin = true;
+		}
 	}
 
 	private bool IsGameOver() {
@@ -113,7 +132,7 @@ public class Labyrinth : MiniGame
 		for (int i = 1; i < currentPath.Count; i++) {
 			//Instantiate(line, buttons[currentPath[i]].transform.position, Quaternion.FromToRotation());
 			//lRend.SetPosition(i, buttons[currentPath[i]].transform.position);
-			lineDrawn.Add(Instantiate(line, buttons[currentPath[i-1]].transform.position, Quaternion.identity, LineDrawn.transform));
+			lineDrawn.Add(Instantiate(line, buttons[currentPath[i - 1]].transform.position, Quaternion.identity, LineDrawn.transform));
 			int dif = currentPath[i] - currentPath[i - 1];
 			if (dif == 5) {
 				lineDrawn[lineDrawn.Count - 1].transform.Rotate(new Vector3(0, 0, 180));
@@ -122,7 +141,7 @@ public class Labyrinth : MiniGame
 			} else if (dif == -1) {
 				lineDrawn[lineDrawn.Count - 1].transform.Rotate(new Vector3(0, 0, 90));
 			}
-		}		
+		}
 	}
 
 }

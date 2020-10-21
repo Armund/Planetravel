@@ -35,6 +35,16 @@ public class Graph : MiniGame {
 	// Start is called before the first frame update
 	void Start() {
 		//Init();
+		pathDrawn = new List<Image>();
+	}
+
+	private void Update() {
+		if (Input.GetKeyDown(KeyCode.J)) {
+			//Init();
+		}
+		if (Input.GetKeyDown(KeyCode.K)) {
+			//Close();
+		}
 	}
 
 	override public void Init() {
@@ -68,9 +78,12 @@ public class Graph : MiniGame {
 			}
 
 			currentCell = nodes[0];
+			winText.text = "";
+			
+			currentPath.Clear();
 			currentPath.Add(0);
 
-			pathDrawn = new List<Image>();
+			//pathDrawn = new List<Image>();
 			DrawLine();
 
 			currentResult = 0;
@@ -83,7 +96,9 @@ public class Graph : MiniGame {
 	override public void Close() {
 		if (isStarted) {
 			canvas.gameObject.SetActive(false);
-			poi.EventLosing();
+			if (poi != null) {
+				poi.EventLosing();
+			}
 			isStarted = false;
 		}
 	}

@@ -18,6 +18,7 @@ public class PlayerControl : MonoBehaviour
 	//ссылки на компоненты
 	private Rigidbody ch_rigidBody;
 	private Transform ch_transform;
+	private Animator ch_animator;
 
 	//стабилизационные объекты
 	//Quaternion rotation = Quaternion.Euler(0, 0, 0);
@@ -45,6 +46,7 @@ public class PlayerControl : MonoBehaviour
     {
 		ch_rigidBody = GetComponent<Rigidbody>();
 		ch_transform = GetComponent<Transform>();
+		ch_animator = GetComponent<Animator>();
 		nearLadder = false;
 		isGrounded = true;
 		nearPOI = false;
@@ -53,7 +55,7 @@ public class PlayerControl : MonoBehaviour
 	
     void Update()
     {
-		moveVectorHorizontal = -transform.right * Input.GetAxis("Horizontal") * speedMove * Time.deltaTime;
+		moveVectorHorizontal = transform.forward * Mathf.Abs(Input.GetAxis("Horizontal")) * speedMove * Time.deltaTime;
 		ch_rigidBody.position += moveVectorHorizontal;
 
 		if (Input.GetKeyDown(KeyCode.Space) && !nearLadder && isGrounded) {
@@ -64,7 +66,20 @@ public class PlayerControl : MonoBehaviour
 		if (nearPOI && Input.GetKeyDown(KeyCode.E)) {
 				poiObject.Interacting();
 		}
-		
+
+		if (Input.GetKey(KeyCode.D)) {
+			ch_animator.SetBool("run", true);
+			ch_rigidBody.rotation = Quaternion.Euler(0, -90, 0);
+		} else if (Input.GetKey(KeyCode.A)) {
+			ch_animator.SetBool("run", true);
+			ch_rigidBody.rotation = Quaternion.Euler(0, 90, 0);
+		} else {
+			ch_animator.SetBool("run", false);
+			ch_rigidBody.rotation = Quaternion.Euler(0, 0, 0);
+		}
+
+		//ch_animator.SetFloat("xSpeed", Input.GetAxis("Horizontal"));
+		//Debug.Log(Input.GetAxis("Horizontal"));
 	}
 
 	private void OnTriggerEnter(Collider other) {
