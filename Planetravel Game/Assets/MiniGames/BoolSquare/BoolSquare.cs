@@ -23,7 +23,7 @@ public class BoolSquare : MiniGame
 
 	private void Update() {
 		if (Input.GetKeyDown(KeyCode.J)) {
-			Init();
+			//Init();
 		}
 		if (Input.GetKeyDown(KeyCode.K)) {
 			//Close();

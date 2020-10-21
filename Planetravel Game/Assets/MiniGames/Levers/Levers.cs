@@ -98,7 +98,8 @@ public class Levers : MiniGame
 		}
 
 		if (IsGameOver()) {
-			goalTopText.text = "WIN";
+			goalTopText.text = "FIXED";
+			goalBotText.text = "FIXED";
 			if (poi != null) {
 				poi.SetEventDone();
 			}
