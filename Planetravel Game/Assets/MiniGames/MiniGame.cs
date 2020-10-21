@@ -27,4 +27,8 @@ public class MiniGame : MonoBehaviour
 	virtual public void Init() { }
 	virtual public void Close() { }
 	//virtual public bool IsGameOver() { return true; }
+	public IEnumerator CloseCoroutine() {
+		yield return new WaitForSeconds(0.5f);
+		Close();
+	}
 }
