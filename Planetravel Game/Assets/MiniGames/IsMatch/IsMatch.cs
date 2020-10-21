@@ -10,7 +10,7 @@ public class IsMatch : MiniGame
 	int goal;
 	int currentScore;
 	public Image[] pictures = new Image[5];
-
+    
 	public GameObject place1;
 	public GameObject place2;
 	public GameObject place3;
@@ -20,10 +20,11 @@ public class IsMatch : MiniGame
 	Image pictureToDelete;
 	Image pictureToDelete2;
 
-	//состояния
-	//bool isStarted;
+    //состояния
+    bool isWin;
+    //bool isStarted;
 
-	int[] imageValues = new int[2];
+    int[] imageValues = new int[2];
 
 	// Start is called before the first frame update
 	void Start()
@@ -84,16 +85,21 @@ public class IsMatch : MiniGame
 	}
 
 	override public void Close() {
-		if (isStarted) {
-			canvas.gameObject.SetActive(false);
-			imageValues[0] = 0;
-			imageValues[1] = 0;
-			if (pictureToDelete != null) {
-				Destroy(pictureToDelete.gameObject);
-			}
-			if (pictureToDelete2 != null) {
-				Destroy(pictureToDelete2.gameObject);
-			}
+        canvas.gameObject.SetActive(false);
+        imageValues[0] = 0;
+        imageValues[1] = 0;
+        if (pictureToDelete != null)
+        {
+            Destroy(pictureToDelete.gameObject);
+        }
+        if (pictureToDelete2 != null)
+        {
+            Destroy(pictureToDelete2.gameObject);
+        }
+        if (isStarted) {
+
+            if (!isWin) poi.EventLosing();
+            isWin = false;
 			isStarted = false;
 		}
 		//StartCoroutine(FirstPicture());
@@ -116,7 +122,8 @@ public class IsMatch : MiniGame
 		}
 		if (IsGameOver()) {
 			progressText.color = Color.green;
-			//poi.SetEventDone();
+			poi.SetEventDone();
+            isWin = true;
 		}
 		RefreshProgressText();
 		NewPictures();

@@ -15,7 +15,7 @@ public class Graph : MiniGame {
 	int[] values = new int[9];
 	int currentResult;
 	int goal;
-
+    bool isWin;
 	//int startPoint = 0;
 	int finishPoint;
 
@@ -94,12 +94,14 @@ public class Graph : MiniGame {
 	}
 
 	override public void Close() {
+    canvas.gameObject.SetActive(false);
 		if (isStarted) {
-			canvas.gameObject.SetActive(false);
-			if (poi != null) {
+			//canvas.gameObject.SetActive(false);
+			if (poi != null && !isWin) {
 				poi.EventLosing();
 			}
 			isStarted = false;
+            isWin = false;
 		}
 	}
 
@@ -129,7 +131,9 @@ public class Graph : MiniGame {
 
 		if (IsGameOver()) {
 			winText.text = "WIN";
-		} else if (currentCell.cellNumber == finishPoint) {
+            poi.SetEventDone();
+            isWin = true;
+        } else if (currentCell.cellNumber == finishPoint) {
 			buttons[8].GetComponent<Image>().sprite = spriteRed;
 		}
 	}

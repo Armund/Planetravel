@@ -65,7 +65,7 @@ public class TurbineControlPOI : POI_Object
         TurbineFlames.SetActive(false);
         repairCounter = 0;
         NewStatus(PoiStatus.Disabled);
-        Sparkles.SetActive(false);
+        WarningSign.SetActive(false);
     }
 
     public override void Interacting()
@@ -80,12 +80,12 @@ public class TurbineControlPOI : POI_Object
     public override void MiniGameInteraction()
     {
         if (!EventDone) return;
-        else { NewStatus(PoiStatus.AfterEvent); EventDone = false; }
+        else { NewStatus(PoiStatus.AfterEvent); EventDone = false; WarningSign.SetActive(false); }
     }
 
     public override void ResetAfterEvent()
     {
-        Sparkles.SetActive(false);
+        WarningSign.SetActive(false);
         TurbineFlames.SetActive(true);
         isInteractable = false;
         timeBeforeNextEvent = Random.Range(minTimeBeforeEvent, maxTImeBeforeEvent);
@@ -101,7 +101,7 @@ public class TurbineControlPOI : POI_Object
             if (status == PoiStatus.Event || status == PoiStatus.Disabled) GM.gm.DeleteActiveEvent();
             NewStatus(PoiStatus.Disabled);
             TurbineFlames.SetActive(false);
-            Sparkles.SetActive(false);
+            WarningSign.SetActive(false);
             isInteractable = false;
             isLostAllFuel = true;
             miniGame.isStarted = false;
@@ -122,7 +122,7 @@ public class TurbineControlPOI : POI_Object
             else if(lastStatus == PoiStatus.OnInteraction)
             {
                 isInteractable = true;
-                Sparkles.SetActive(true);
+                WarningSign.SetActive(true);
                 TurbineFlames.SetActive(false);
                 GM.gm.AddActiveEvent();
                 NewStatus(PoiStatus.Event);
