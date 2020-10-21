@@ -46,21 +46,20 @@ public class IsMatch : MiniGame
 			}
 		}
 
-		/*
-        if (Input.GetKeyDown(KeyCode.Q)) {
-			Answer(false);
+		if (Input.GetKeyDown(KeyCode.J)) {
+			//Init();
 		}
-		if (Input.GetKeyDown(KeyCode.E)) {
-			Answer(true);
+		if (Input.GetKeyDown(KeyCode.K)) {
+			//Close();
 		}
-		*/
 	}
 
 	override public void Init() {
 		if (!isStarted) {
 			canvas.gameObject.SetActive(true);
 			progressText.color = Color.yellow;
-			goal = 20;
+			result.text = "";
+			goal = 10;
 			currentScore = 0;
 			imageValues[0] = 0;
 			imageValues[1] = 0;
@@ -110,7 +109,7 @@ public class IsMatch : MiniGame
 		if (answer == (imageValues[0] == imageValues[1])) {
 			currentScore += 1;
 			//Debug.Log("GOOD");
-			result.text = "RIGHT";
+			//result.text = "RIGHT";
 			result.color = Color.green;
 		} else {
 			currentScore -= 2;
@@ -118,7 +117,7 @@ public class IsMatch : MiniGame
 				currentScore = 0;
 			}
 			//Debug.Log("BAD");
-			result.text = "WRONG";
+			//result.text = "WRONG";
 			result.color = Color.red;
 		}
 		if (IsGameOver()) {
@@ -131,7 +130,9 @@ public class IsMatch : MiniGame
 	}
 
 	private void NewPictures() {
-		Destroy(pictureToDelete2.gameObject);
+		if (pictureToDelete2 != null) {
+			Destroy(pictureToDelete2.gameObject);
+		}
 		imageValues[0] = imageValues[1];
 
 		int rand = Random.Range(0, 4);
