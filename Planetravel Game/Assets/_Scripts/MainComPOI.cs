@@ -84,7 +84,7 @@ public class MainComPOI : POI_Object
     public override void MiniGameInteraction()
     {
         if (!EventDone) return;
-        else { NewStatus(PoiStatus.AfterEvent); EventDone = false; }
+        else { NewStatus(PoiStatus.AfterEvent); EventDone = false; WarningSign.SetActive(false); }
     }
 
     public override void ResetAfterEvent()
@@ -92,6 +92,7 @@ public class MainComPOI : POI_Object
         isInteractable = false;
         timeBeforeNextEvent = Random.Range(minTimeBeforeEvent, maxTImeBeforeEvent);
         GM.gm.DeleteActiveEvent();
+        WarningSign.SetActive(false);
         speedMod = 1;
         NewStatus(PoiStatus.Active);
         EventDone = false;
