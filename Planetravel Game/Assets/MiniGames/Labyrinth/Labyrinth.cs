@@ -109,10 +109,11 @@ public class Labyrinth : MiniGame {
 		}
 
 		if (IsGameOver()) {
-			winText.text = "WIN";
+			winText.text = "FIXED";
 			if (poi != null) {
 				poi.SetEventDone();
 			}
+			StartCoroutine(CloseCoroutine());
 			isWin = true;
 		}
 	}

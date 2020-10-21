@@ -36,6 +36,15 @@ public class Levers : MiniGame
 		//Init();
 	}
 
+	private void Update() {
+		if (Input.GetKeyDown(KeyCode.J)) {
+			Init();
+		}
+		if (Input.GetKeyDown(KeyCode.K)) {
+			//Close();
+		}
+	}
+
 	override public void Init() {
 		if (!isStarted) {
 			can.gameObject.SetActive(true);
@@ -90,10 +99,13 @@ public class Levers : MiniGame
 
 		if (IsGameOver()) {
 			goalTopText.text = "WIN";
-			poi.SetEventDone();
+			if (poi != null) {
+				poi.SetEventDone();
+			}
+			StartCoroutine(CloseCoroutine());
             isWin = true;
 		}
-		Debug.Log("Button " + leverNumber + " pressed");
+		//Debug.Log("Button " + leverNumber + " pressed");
 	}
 
 	private bool IsGameOver () {

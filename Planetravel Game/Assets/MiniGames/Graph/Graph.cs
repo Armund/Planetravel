@@ -131,7 +131,10 @@ public class Graph : MiniGame {
 
 		if (IsGameOver()) {
 			winText.text = "WIN";
-			poi.SetEventDone();
+			if (poi != null) {
+				poi.SetEventDone();
+			}
+			StartCoroutine(CloseCoroutine());
 			isWin = true;
 		} else if (currentCell.cellNumber == finishPoint) {
 			buttons[8].GetComponent<Image>().sprite = spriteRed;
@@ -175,4 +178,11 @@ public class Graph : MiniGame {
 		yield return new WaitForSeconds(2);
 
 	}
+
+	/*
+	IEnumerator CloseCoroutine() {
+		yield return new WaitForSeconds(0.5f);
+		Close();
+	}
+	*/
 }

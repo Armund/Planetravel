@@ -122,7 +122,11 @@ public class IsMatch : MiniGame
 		}
 		if (IsGameOver()) {
 			progressText.color = Color.green;
-			poi.SetEventDone();
+			progressText.text = "FIXED";
+			if (poi != null) {
+				poi.SetEventDone();
+			}
+			StartCoroutine(CloseCoroutine());
             isWin = true;
 		}
 		RefreshProgressText();

@@ -19,6 +19,15 @@ public class Lock : MiniGame
 		//Init();
     }
 
+	private void Update() {
+		if (Input.GetKeyDown(KeyCode.J)) {
+			//Init();
+		}
+		if (Input.GetKeyDown(KeyCode.K)) {
+			//Close();
+		}
+	}
+
 	public override void Init() {
 		if (!isStarted) {
 			canvas.gameObject.SetActive(true);
@@ -27,6 +36,8 @@ public class Lock : MiniGame
 			winText.text = "LOCKED";
 			winText.color = Color.red;
 			currentCodeText.text = "";
+			currentCode.Clear();
+			goal.Clear();
 			for (int i = 0; i < 4; i++) {
 				goal.Add(Random.Range(0, 10));
 				codeText.text += goal[i].ToString();
@@ -51,9 +62,12 @@ public class Lock : MiniGame
 		currentCodeText.text += but.ToString();
 		if (IsGameOver()) {
 			winText.text = "UNLOCKED";
-            poi.SetEventDone();
+			if (poi != null) {
+				poi.SetEventDone();
+			}
             isWin = true;
             winText.color = Color.green;
+			StartCoroutine(CloseCoroutine());
 		} else if (currentCode.Count == 4) {
 			currentCodeText.text = "";
 			currentCode.Clear();
@@ -68,4 +82,11 @@ public class Lock : MiniGame
 		}
 		return true;
 	}
+
+	/*
+	IEnumerator CloseCoroutine() {
+		yield return new WaitForSeconds(0.5f);
+		Close();
+	}
+	*/
 }
