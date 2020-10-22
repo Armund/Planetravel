@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public enum GameState { Init, Tutorial, Start, Session, LoseState, WinState, End }
 public class GM : MonoBehaviour
 {
+    public ImageController img;
     public PlayerControl PC;
     public bool Electricity;
     public GameState state = GameState.Init;
@@ -92,6 +93,8 @@ public class GM : MonoBehaviour
     {
         ActiveTurbines--;
     }
+
+
 
    /* public void FindAllEvents()
     {

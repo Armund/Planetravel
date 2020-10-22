@@ -8,6 +8,7 @@ public class PlanetShip : MonoBehaviour
     public Scrollbar HPbar;
     public Scrollbar FuelBar;
     public Text PtoD;
+    public ImageController img;
     public float maxHP;
     public float HP;
     public float maxFuel;
@@ -31,6 +32,7 @@ public class PlanetShip : MonoBehaviour
         parsecFromStartPoint = 0;
         HP = maxHP;
         fuel = maxFuel;
+        
     }
 
     // Update is called once per frame
@@ -39,6 +41,7 @@ public class PlanetShip : MonoBehaviour
         SetSpeed();
         Travel();
         SetUI();
+        imgCon();
     }
 
     public void SetSpeed()
@@ -46,10 +49,15 @@ public class PlanetShip : MonoBehaviour
         speed = speedMod * workingTurbines * speedOfOneTurbine;
     }
 
+    public void imgCon()
+    {
+        img.currentDistance = parsecToDestination - parsecFromStartPoint;
+    }
+
     public void Travel()
     {
         parsecFromStartPoint += speed * Time.deltaTime;
-        fuel -= fuelWastingSpeed * Time.deltaTime;
+        fuel -= workingTurbines * fuelWastingSpeed * Time.deltaTime;
         if (fuel <= 0.0001f) fuel = 0f;
     }
 
