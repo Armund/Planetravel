@@ -43,6 +43,12 @@ public class FireMaker : MonoBehaviour
         
     }
 
+    public void InitSetter(float cooldown, int maxF)
+    {
+        cooldownSetter = cooldown;
+        maxFires = maxF;
+    }
+
     public void DeleteFire()
     {
         curFires--;

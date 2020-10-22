@@ -13,7 +13,7 @@ public class GenPOI : POI_Object
     {
         base.Start();
         MR.material = genOnMat;
-        poiName = "Generator";
+        poiName = "Gen";
         isElectrical = false;
         lastStatus = PoiStatus.Active;
         status = PoiStatus.Active;

@@ -65,7 +65,7 @@ public class PlanetShip : MonoBehaviour
     {
         HPbar.size = HP / maxHP;
         FuelBar.size = fuel / maxFuel;
-        PtoD.text = "Parsec left to the destination\n" + ((int)(parsecToDestination - parsecFromStartPoint)).ToString();
+        PtoD.text = "Km left to the destination:\n" + ((int)(parsecToDestination - parsecFromStartPoint)).ToString();
     }
 
     public bool WinCondition()

@@ -5,12 +5,14 @@ using UnityEngine;
 public class TurbineControlPOI : POI_Object
 {
     public GameObject TurbineFlames;
+    public AudioSource TAS;
     public bool isLostAllFuel;
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
         poiName = "Tur";
+        TAS.Play();
         isElectrical = false;
         TurbineFlames.SetActive(true);
         lastStatus = PoiStatus.Active;
@@ -32,7 +34,7 @@ public class TurbineControlPOI : POI_Object
                 break;
             case PoiStatus.Disabled:
                 {
-
+                    TAS.Stop();
                 }
                 break;
             case PoiStatus.Event:
@@ -64,6 +66,7 @@ public class TurbineControlPOI : POI_Object
     {
         TurbineFlames.SetActive(false);
         repairCounter = 0;
+        
         NewStatus(PoiStatus.Disabled);
         WarningSign.SetActive(false);
     }
@@ -85,6 +88,7 @@ public class TurbineControlPOI : POI_Object
 
     public override void ResetAfterEvent()
     {
+        TAS.Play();
         WarningSign.SetActive(false);
         TurbineFlames.SetActive(true);
         isInteractable = false;
@@ -114,13 +118,19 @@ public class TurbineControlPOI : POI_Object
         if(isLostAllFuel && GM.gm.PS.fuel >0)
         {
             TurbineFlames.SetActive(true);
+            
             if (lastStatus == PoiStatus.Disabled)
             {
+                TAS.Stop();
                 isInteractable = true;
                 TurbineFlames.SetActive(false);
+                status = lastStatus;
+                isLostAllFuel = false;
+                return;
             }
             else if(lastStatus == PoiStatus.OnInteraction)
             {
+                TAS.Stop();
                 isInteractable = true;
                 WarningSign.SetActive(true);
                 TurbineFlames.SetActive(false);
@@ -129,6 +139,7 @@ public class TurbineControlPOI : POI_Object
                 isLostAllFuel = false;
                 return;
             }
+            TAS.Play();
             status = lastStatus;
             isLostAllFuel = false;
         }

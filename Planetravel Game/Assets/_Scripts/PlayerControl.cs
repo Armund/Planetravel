@@ -82,7 +82,7 @@ public class PlayerControl : MonoBehaviour
 		//Debug.Log(Input.GetAxis("Horizontal"));
 	}
 
-	private void OnTriggerEnter(Collider other) {
+	private void OnTriggerStay(Collider other) {
 		if (other.gameObject.CompareTag("Ladder")) {
 			EnterLadder();
 		}
@@ -90,10 +90,10 @@ public class PlayerControl : MonoBehaviour
 			isGrounded = true;
 		}
 		if (other.gameObject.CompareTag("POI")) {
-			if (poiObject == null) {
+			
 				poiObject = other.gameObject.GetComponent<POI_Object>();
 				nearPOI = true;
-			}
+			
 			//miniGame.Init();
 		}
 	}
