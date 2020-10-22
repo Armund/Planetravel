@@ -8,6 +8,7 @@ public class Meteorites : MonoBehaviour
     public Transform[] Getter = new Transform[2];
     public GameObject meteoritePrefab;
     public GameObject curMeteorite;
+    public AudioSource curAS;
     public bool Act;
     public float cooldownBetweenMeteorites;
     public float cooldownSetter;
@@ -73,6 +74,8 @@ public class Meteorites : MonoBehaviour
         changer = 0;
         curEXP = Instantiate(EXP, curMeteorite.transform.position, Quaternion.identity);
         curEXP.Play();
+        curAS = curEXP.GetComponent<AudioSource>();
+        curAS.Play();
         isParticleCreated = true;
         timeForParticle = 1;
         Destroy(curMeteorite);
