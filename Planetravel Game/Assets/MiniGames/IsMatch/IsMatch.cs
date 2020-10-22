@@ -10,6 +10,8 @@ public class IsMatch : MiniGame
 	int goal;
 	int currentScore;
 	public Image[] pictures = new Image[5];
+
+	public Button[] buttons = new Button[2];
     
 	public GameObject place1;
 	public GameObject place2;
@@ -55,6 +57,9 @@ public class IsMatch : MiniGame
 	}
 
 	override public void Init() {
+		buttons[0].interactable = false;
+		buttons[1].interactable = false;
+
 		if (!isStarted) {
 			canvas.gameObject.SetActive(true);
 			progressText.color = Color.yellow;
@@ -75,6 +80,8 @@ public class IsMatch : MiniGame
 		pictureToDelete = PlaceImage(pictures[rand], place3);
 
 		yield return new WaitForSeconds(1);
+		buttons[0].interactable = true;
+		buttons[1].interactable = true;
 
 		pictureToDelete2 = pictureToDelete;
 		//pictureToDelete2 = PlaceImage(pictures[4], place1);
@@ -138,8 +145,11 @@ public class IsMatch : MiniGame
 			Destroy(pictureToDelete2.gameObject);
 		}
 		imageValues[0] = imageValues[1];
-
+		
 		int rand = Random.Range(0, 4);
+		if (rand != imageValues[0]) {
+			rand = Random.Range(0, 4);
+		}
 		imageValues[1] = rand;
 		pictureToDelete2 = pictureToDelete;
 		pictureToDelete = PlaceImage(pictures[rand], place3);

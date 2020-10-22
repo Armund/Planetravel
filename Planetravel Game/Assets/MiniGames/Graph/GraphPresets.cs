@@ -9,8 +9,8 @@ public static class GraphPresets
 	public static List<int>[,] availableCells = new List<int>[,] {
 		//0
 		{ new List<int>() { 1, 2},
-			new List<int>() {4}, new List<int>() {3,4,5},
-			new List<int>() {6}, new List<int>() {8}, new List<int>() {7},
+			new List<int>() {3,4,5}, new List<int>() {3,4,5},
+			new List<int>() {6,7}, new List<int>() {6,7}, new List<int>() {6,7},
 			new List<int>() {8}, new List<int>() {8},
 			new List<int>() {}},
 		//1

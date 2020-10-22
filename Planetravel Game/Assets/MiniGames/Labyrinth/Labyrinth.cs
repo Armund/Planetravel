@@ -30,6 +30,7 @@ public class Labyrinth : MiniGame {
 	void Start() {
 		gameNumber = 0;
 		//isStarted = false;
+		gameNumber = 9;
 
 		lineDrawn = new List<Image>();
 	}
@@ -56,7 +57,7 @@ public class Labyrinth : MiniGame {
 				gameNumber++;
 			}
 			int rand = gameNumber;
-			rand = 8; //пока не сделаны пресеты
+			//rand = 8; //пока не сделаны пресеты
 
 			startPoint = LabyrinthPresets.startCells[rand];
 			finishPoint = LabyrinthPresets.finishCells[rand];

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class LeversPresets
 {
-	public static int presetsNumber = 10;
+	public static int presetsNumber = 9;
 	public static int[,] valuesTop = new int[,] {
 		{3,3,5,1},
 		{1,3,5,1},

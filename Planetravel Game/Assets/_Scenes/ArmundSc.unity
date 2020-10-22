@@ -3184,6 +3184,42 @@ PrefabInstance:
       propertyPath: labSprites.Array.data[0]
       value: 
       objectReference: {fileID: 21300000, guid: 998e54b11350e884786c4403131c8a57, type: 3}
+    - target: {fileID: 6221314843367885298, guid: da6051d833d539e4fb90956b0a7c0397, type: 3}
+      propertyPath: labSprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: ae4bcd3d6d0ea8d4eada378211c058eb, type: 3}
+    - target: {fileID: 6221314843367885298, guid: da6051d833d539e4fb90956b0a7c0397, type: 3}
+      propertyPath: labSprites.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 55ea939e42afe384d9bbdfabb0c2a276, type: 3}
+    - target: {fileID: 6221314843367885298, guid: da6051d833d539e4fb90956b0a7c0397, type: 3}
+      propertyPath: labSprites.Array.data[3]
+      value: 
+      objectReference: {fileID: 21300000, guid: 7dc499321e5eff843ac02d13e40d52d5, type: 3}
+    - target: {fileID: 6221314843367885298, guid: da6051d833d539e4fb90956b0a7c0397, type: 3}
+      propertyPath: labSprites.Array.data[4]
+      value: 
+      objectReference: {fileID: 21300000, guid: a4c445b39c367ee428a5da42ccb9caf8, type: 3}
+    - target: {fileID: 6221314843367885298, guid: da6051d833d539e4fb90956b0a7c0397, type: 3}
+      propertyPath: labSprites.Array.data[5]
+      value: 
+      objectReference: {fileID: 21300000, guid: 770d8a286b7cf9f45ab03a9998e6c7fb, type: 3}
+    - target: {fileID: 6221314843367885298, guid: da6051d833d539e4fb90956b0a7c0397, type: 3}
+      propertyPath: labSprites.Array.data[6]
+      value: 
+      objectReference: {fileID: 21300000, guid: b5122b80f5c7f8f4ab2f42ef3ae30497, type: 3}
+    - target: {fileID: 6221314843367885298, guid: da6051d833d539e4fb90956b0a7c0397, type: 3}
+      propertyPath: labSprites.Array.data[7]
+      value: 
+      objectReference: {fileID: 21300000, guid: 5caaf4aaa557d0e49bc36dbade514519, type: 3}
+    - target: {fileID: 6221314843367885298, guid: da6051d833d539e4fb90956b0a7c0397, type: 3}
+      propertyPath: labSprites.Array.data[8]
+      value: 
+      objectReference: {fileID: 21300000, guid: 0d2a74b6730f92a428a238f91b6c0554, type: 3}
+    - target: {fileID: 6221314843367885298, guid: da6051d833d539e4fb90956b0a7c0397, type: 3}
+      propertyPath: labSprites.Array.data[9]
+      value: 
+      objectReference: {fileID: 21300000, guid: 7fba1c3038c38a845bfac9e962fe07f7, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da6051d833d539e4fb90956b0a7c0397, type: 3}
 --- !u!1001 &7859039935650847639
