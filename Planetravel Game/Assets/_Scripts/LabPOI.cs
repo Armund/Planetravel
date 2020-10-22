@@ -8,7 +8,7 @@ public class LabPOI : POI_Object
     public float containerСapacity = 500;
     public float curCapacity = 0;
     public float occupancy = 2;
-
+    public AudioSource AS;
     public Vector3 occupScale;
     public Vector3 startScale;
 
@@ -26,7 +26,7 @@ public class LabPOI : POI_Object
         lastStatus = PoiStatus.UnActive;
         status = PoiStatus.UnActive;
         isInteractable = true;
-
+        AS = GetComponent<AudioSource>();
         container = transform.Find("ConPivot").gameObject;
         occupScale = new Vector3(0,((1 - 0.01f) / (containerСapacity / occupancy)),0);
         startScale = container.transform.localScale;
@@ -83,6 +83,7 @@ public class LabPOI : POI_Object
         {
             isInteractable = true;
             fuelBattery.SetActive(true);
+            AS.Stop();
             container.transform.localScale = startScale;
             curCapacity = 0;
             NewStatus(PoiStatus.Event);
@@ -93,7 +94,7 @@ public class LabPOI : POI_Object
     public override void MiniGameInteraction()
     {
         if (!EventDone) return;
-        else { NewStatus(PoiStatus.Active); EventDone = false; }
+        else { NewStatus(PoiStatus.Active); EventDone = false; AS.Play(); }
     }
 
     public override void Interacting()

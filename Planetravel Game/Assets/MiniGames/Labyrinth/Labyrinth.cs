@@ -56,7 +56,7 @@ public class Labyrinth : MiniGame {
 				gameNumber++;
 			}
 			int rand = gameNumber;
-			rand = 8; //пока не сделаны пресеты
+			//rand = 8; //пока не сделаны пресеты
 
 			startPoint = LabyrinthPresets.startCells[rand];
 			finishPoint = LabyrinthPresets.finishCells[rand];

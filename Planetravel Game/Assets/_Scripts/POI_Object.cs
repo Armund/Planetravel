@@ -24,6 +24,13 @@ public class POI_Object : MonoBehaviour
 
 	public MiniGame miniGame;
 
+    public void InitSetter(float minEvent, float maxEvent, float timeForRep)
+    {
+        minTimeBeforeEvent = minEvent;
+        maxTImeBeforeEvent = maxEvent;
+        timeForRepair = timeForRep;
+    }
+
     // Start is called before the first frame update
     protected virtual void Start()
     {
