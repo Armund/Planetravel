@@ -52,7 +52,7 @@ public class Graph : MiniGame {
 			canvas.gameObject.SetActive(true);
 
 			//int rand = Random.Range(0, 10);
-			if (gameNumber > GraphPresets.presetsNumber) {
+			if (gameNumber == GraphPresets.presetsNumber) {
 				gameNumber = 0;
 			} else {
 				gameNumber++;
