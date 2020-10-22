@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class Labyrinth : MiniGame {
 	public Canvas canvas;
 	public Text winText;
+	public Image labyrinthImage;
+	public Sprite[] labSprites = new Sprite[10];
 
 	Node[] nodes = new Node[25];
 	public GameObject[] buttons = new GameObject[25];
@@ -54,7 +56,7 @@ public class Labyrinth : MiniGame {
 				gameNumber++;
 			}
 			int rand = gameNumber;
-			rand = 0; //пока не сделаны пресеты
+			rand = 8; //пока не сделаны пресеты
 
 			startPoint = LabyrinthPresets.startCells[rand];
 			finishPoint = LabyrinthPresets.finishCells[rand];
@@ -65,6 +67,7 @@ public class Labyrinth : MiniGame {
 				nodes[i].availableCells = LabyrinthPresets.availableCells[rand, i];
 				buttons[i].GetComponent<Image>().sprite = spriteBlue;
 			}
+			labyrinthImage.sprite = labSprites[rand];
 
 			currentCell = nodes[startPoint];
 			currentPath.Clear();

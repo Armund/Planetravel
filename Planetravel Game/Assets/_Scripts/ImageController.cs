@@ -15,7 +15,7 @@ public class ImageController : MonoBehaviour
 	[SerializeField]
 	float currentScale;
 	[SerializeField]
-	float currentDistance;
+	public float currentDistance;
 	[SerializeField]
 	float maxDistance;
 
@@ -31,9 +31,9 @@ public class ImageController : MonoBehaviour
 		//planet = GetComponent<RectTransform>();
 		minScale = 0.8f;
 		maxScale = 9.0f;
-		maxDistance = 7000;
-		currentDistance = 6000;
-
+		maxDistance = 5000;
+		currentDistance = 5000;
+        currentScale = 1f;
 		isDirectionToPlanet = true;
 		maxAngle = 0.55f;
 		//anchor = planet
@@ -54,8 +54,15 @@ public class ImageController : MonoBehaviour
 	void FixedUpdate()
     {
 		currentScale = maxScale / (currentDistance / maxDistance * (maxScale - minScale));
-		currentScale = Mathf.Clamp(currentScale, minScale, maxScale);
-		transform.localScale = new Vector3(currentScale, currentScale, 1);
+        if (currentDistance < 0)
+        {
+            currentScale = maxScale;
+        }
+        else
+        {
+            currentScale = Mathf.Clamp(currentScale, minScale, maxScale);
+        }
+        transform.localScale = new Vector3(currentScale, currentScale, 1);
 
 
 		if (!isDirectionToPlanet && transform.rotation.z < maxAngle) {

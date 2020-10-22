@@ -141,7 +141,7 @@ public class PlayerControl : MonoBehaviour
     {
         if (currentItem != null) UseItem();
         
-            currentItem = Instantiate(item, ch_transform.position + new Vector3(+0.2f, 0.6f, 0), Quaternion.identity, ch_transform);
+            currentItem = Instantiate(item, ch_transform.position + new Vector3(0, 0.8f, -0.2f), Quaternion.identity, ch_transform);
             itemCode = code;
             hasItem = true;
      
