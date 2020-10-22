@@ -51,7 +51,7 @@ public class Labyrinth : MiniGame {
 			canvas.gameObject.SetActive(true);
 
 			//int rand = Random.Range(0, 10);
-			if (gameNumber > LeversPresets.presetsNumber) {
+			if (gameNumber == LeversPresets.presetsNumber) {
 				gameNumber = 0;
 			} else {
 				gameNumber++;

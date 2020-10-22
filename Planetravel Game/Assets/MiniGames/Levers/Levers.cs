@@ -52,13 +52,13 @@ public class Levers : MiniGame
 			can.gameObject.SetActive(true);
 
 			//int rand = Random.Range(0, 10);
-			if (gameNumber > LeversPresets.presetsNumber) {
+			if (gameNumber == LeversPresets.presetsNumber) {
 				gameNumber = 0;
 			} else {
 				gameNumber++;
 			}
 			int rand = gameNumber;
-			rand = 0; //пока не сделаны пресеты
+			//rand = 0; //пока не сделаны пресеты
 
 			for (int i = 0; i < leversNumber; i++) {
 				valuesTop[i] = LeversPresets.valuesTop[rand, i];
