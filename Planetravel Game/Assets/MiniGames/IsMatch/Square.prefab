@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3274702554484075282}
   - component: {fileID: 3721363277917214754}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fc285ff955238e94a9fc4316df5882e2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 77e31e08f2df18f4eb6a2563c1d39435, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

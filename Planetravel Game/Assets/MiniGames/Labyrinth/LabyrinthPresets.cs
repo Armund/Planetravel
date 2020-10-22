@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public static class LabyrinthPresets {
-	public static int presetsNumber = 10;
+	public static int presetsNumber = 9;
 												   //0	1	2	3	4	5	6	7	8	9
 	public static int[] startCells = new int[10] { 0,	0,	4,	4,	20, 24, 24, 20, 5,	2 };
 	public static int[] finishCells = new int[10] { 22, 24, 15, 22, 3,	4,	0,	21, 23, 14 };
