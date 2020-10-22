@@ -30,6 +30,7 @@ public class Labyrinth : MiniGame {
 	void Start() {
 		gameNumber = 0;
 		//isStarted = false;
+		gameNumber = 9;
 
 		lineDrawn = new List<Image>();
 	}

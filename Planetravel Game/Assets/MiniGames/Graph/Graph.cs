@@ -67,7 +67,7 @@ public class Graph : MiniGame {
 				nodes[i] = new Node {
 					cellNumber = i
 				};
-				nodes[i].availableCells = GraphPresets.availableCells[rand, i];
+				nodes[i].availableCells = GraphPresets.availableCells[0, i];
 
 				values[i] = GraphPresets.valuesInside[rand, i];
 				if (i != 0 && i != 8) {
