@@ -11,19 +11,21 @@ public class Levers : MiniGame
 
 	//состояния
 	//bool isStarted;
-  bool isWin;
+	bool isWin;
+
+	public static int leversNumber = 4;
 	
-	public Text[] numbersTop = new Text[6];
-	public Text[] numbersBot = new Text[6];
-	int[] valuesTop = new int[6];
-	int[] valuesBot = new int[6];
+	public Text[] numbersTop = new Text[leversNumber];
+	public Text[] numbersBot = new Text[leversNumber];
+	int[] valuesTop = new int[leversNumber];
+	int[] valuesBot = new int[leversNumber];
 	public Text goalTopText;
 	public Text goalBotText;
 	int goalTop;
 	int goalBot;
-	bool[] levers = new bool[6];
+	bool[] levers = new bool[leversNumber];
 
-	public GameObject[] buttons = new GameObject[6];
+	public GameObject[] buttons = new GameObject[leversNumber];
 
 	//без повторений
 	int gameNumber;
@@ -58,14 +60,14 @@ public class Levers : MiniGame
 			int rand = gameNumber;
 			rand = 0; //пока не сделаны пресеты
 
-			for (int i = 0; i < 6; i++) {
+			for (int i = 0; i < leversNumber; i++) {
 				valuesTop[i] = LeversPresets.valuesTop[rand, i];
 				valuesBot[i] = LeversPresets.valuesBot[rand, i];
 			}
 			goalTop = LeversPresets.goalsTop[rand];
 			goalBot = LeversPresets.goalsBot[rand];
 
-			for (int i = 0; i < 6; i++) {
+			for (int i = 0; i < leversNumber; i++) {
 				levers[i] = true;
 				buttons[i].GetComponent<Image>().sprite = buttonUpSprite;
 				numbersTop[i].text = valuesTop[i].ToString();
@@ -113,7 +115,7 @@ public class Levers : MiniGame
 		int resultTop = 0;
 		int resultBot = 0;
 
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < leversNumber; i++) {
 			if (levers[i]) {
 				resultTop += valuesTop[i];
 			} else {
