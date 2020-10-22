@@ -58,7 +58,7 @@ public class Graph : MiniGame {
 				gameNumber++;
 			}
 			int rand = gameNumber;
-			rand = 0; //пока не сделаны пресеты
+			//rand = 0; //пока не сделаны пресеты
 
 			goal = GraphPresets.goals[rand];
 			finishPoint = 8;
