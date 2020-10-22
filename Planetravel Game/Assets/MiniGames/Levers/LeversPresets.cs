@@ -29,6 +29,6 @@ public static class LeversPresets
 		{1,6,1,9},
 		{2,6,4,1}
 	};
-	public static int[] goalsTop = new int[] {8,6,10,3,4,9,5,8,9,7};
-	public static int[] goalsBot = new int[] {6,8,6,7,6,4,7,3,10,5};
+	public static int[] goalsTop = new int[] {8,5,10,3,4,9,5,8,9, 14};
+	public static int[] goalsBot = new int[] {6,7,6, 7,6,4,7,3,10,6};
 }
