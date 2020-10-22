@@ -9,15 +9,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6448588221605332772, guid: ccd9df7d7deb2884282976af678a61db, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -21.334
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6448588221605332772, guid: ccd9df7d7deb2884282976af678a61db, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.502
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6448588221605332772, guid: ccd9df7d7deb2884282976af678a61db, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.86
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6448588221605332772, guid: ccd9df7d7deb2884282976af678a61db, type: 3}
       propertyPath: m_LocalRotation.x
@@ -65,7 +65,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6448588221605332952, guid: ccd9df7d7deb2884282976af678a61db, type: 3}
       propertyPath: m_Name
-      value: TestFuelBattery
+      value: TestFuelBattery Variant
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6448588221605332953, guid: ccd9df7d7deb2884282976af678a61db, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6448588221605332953, guid: ccd9df7d7deb2884282976af678a61db, type: 3}
+    - {fileID: 6448588221381593329, guid: ccd9df7d7deb2884282976af678a61db, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ccd9df7d7deb2884282976af678a61db, type: 3}

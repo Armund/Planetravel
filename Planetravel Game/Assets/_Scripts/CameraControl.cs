@@ -30,13 +30,15 @@ public class CameraControl : MonoBehaviour
     void Update()
     {
         temp();
+
+        Camera.main.transform.Translate(new Vector3(0f, 0f, Camera.main.transform.position.z));
     }
 
     public void temp()
     {
         Vector3 t = (playerT.position - LeftBPlayerPiv.position);
         Hor = new Vector3(t.x, 0f, t.z);
-        Ver = new Vector3(t.x, t.y, 0f);
+        Ver = new Vector3(0f, t.y, t.z);
         Camera.main.transform.position = ((Hor/HorS) + (Ver/VerS)) + LeftBCamPiv.position;
     }
 }

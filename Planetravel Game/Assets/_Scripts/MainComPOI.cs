@@ -44,6 +44,7 @@ public class MainComPOI : POI_Object
                 break;
             case PoiStatus.Event:
                 {
+                    GM.gm.img.isDirectionToPlanet = false;
                     isInteractable = true;
                     ChangingWay();
 
@@ -95,6 +96,7 @@ public class MainComPOI : POI_Object
         WarningSign.SetActive(false);
         speedMod = 1;
         NewStatus(PoiStatus.Active);
+        GM.gm.img.isDirectionToPlanet = true;
         EventDone = false;
     }
 }
