@@ -130,7 +130,7 @@ public class Graph : MiniGame {
 		}
 
 		if (IsGameOver()) {
-			winText.text = "WIN";
+			winText.text = "SHIP TRAJECTORY FIXED";
 			if (poi != null) {
 				poi.SetEventDone();
 			}
