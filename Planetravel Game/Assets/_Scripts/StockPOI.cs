@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class StockPOI : POI_Object
 {
-
+    public AudioSource AS;
     public GameObject fireEstinPref;
     // Start is called before the first frame update
     protected override void Start()
     {
+        AS = GetComponent<AudioSource>();
         base.Start();
         poiName = "Stock";
         isElectrical = true;
@@ -56,6 +57,7 @@ public class StockPOI : POI_Object
     public override void ResetAfterEvent()
     {
         isInteractable = true;
+        AS.Play();
         NewStatus(PoiStatus.UnActive);
         GM.gm.PC.GetItem(fireEstinPref, 0);
         EventDone = false;
