@@ -31,7 +31,7 @@ public class IntroScript : MonoBehaviour
 			img3.gameObject.SetActive(true);
 			i++;
 		} else if (i == 2) {
-			SceneManager.LoadScene("SessionScene");
+			SceneManager.LoadScene("SessionScene", LoadSceneMode.Single);
 		}
 	}
 }
