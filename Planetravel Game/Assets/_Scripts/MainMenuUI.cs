@@ -8,6 +8,14 @@ public class MainMenuUI : MonoBehaviour
 {
     public Button StartButton;
     public Button ExitButton;
+
+	//public GameObject credits;
+	public Image howToPlay;
+	public Text credits;
+	public Image omg;
+
+	//Text HowToPlay;
+	bool active = false;
     
     // Start is called before the first frame update
     void Start()
@@ -17,7 +25,7 @@ public class MainMenuUI : MonoBehaviour
 
     public void StartTheGame()
     {
-        SceneManager.LoadScene("SessionScene", LoadSceneMode.Single);
+        SceneManager.LoadScene("IntroScene", LoadSceneMode.Single);
     }
 
     public void ExitTheGame()
@@ -29,4 +37,17 @@ public class MainMenuUI : MonoBehaviour
     {
         
     }
+	public void SetActiveCredits () {
+		if (!active) {
+			credits.gameObject.SetActive(true);
+			howToPlay.gameObject.SetActive(true);
+			omg.gameObject.SetActive(true);
+			active = !active;
+		} else {
+			credits.gameObject.SetActive(false);
+			howToPlay.gameObject.SetActive(false);
+			omg.gameObject.SetActive(false);
+			active = !active;
+		}
+	}
 }
