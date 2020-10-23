@@ -31,6 +31,8 @@ public class PlayerControl : MonoBehaviour
 	private bool isGrounded;
     [SerializeField]
 	private bool nearPOI;
+	[SerializeField]
+	private bool nearWall;
 
     [SerializeField]
 	public bool hasItem;
@@ -51,16 +53,25 @@ public class PlayerControl : MonoBehaviour
 		isGrounded = true;
 		nearPOI = false;
 		hasItem = false;
+		nearWall = false;
     }
-	
-    void Update()
-    {
-		moveVectorHorizontal = transform.forward * Mathf.Abs(Input.GetAxis("Horizontal")) * speedMove * Time.deltaTime;
-		ch_rigidBody.position += moveVectorHorizontal;
 
+	private void Update() {
 		if (Input.GetKeyDown(KeyCode.Space) && !nearLadder && isGrounded) {
 			ch_rigidBody.AddForce(ch_transform.up * jumpForce);
 		}
+	}
+
+	void FixedUpdate()
+    {
+
+		moveVectorHorizontal = transform.forward * Mathf.Abs(Input.GetAxis("Horizontal")) * speedMove * Time.deltaTime;
+		if (!nearWall) {
+			ch_rigidBody.position += moveVectorHorizontal;
+		}
+		nearWall = false;
+
+		
 		LadderControl();
 
 		if (nearPOI && Input.GetKeyDown(KeyCode.E)) {
@@ -88,6 +99,7 @@ public class PlayerControl : MonoBehaviour
 		}
 		if (other.gameObject.CompareTag("Ground")) {
 			isGrounded = true;
+			//nearWall = true;
 		}
 		if (other.gameObject.CompareTag("POI")) {
 			
@@ -95,6 +107,9 @@ public class PlayerControl : MonoBehaviour
 				nearPOI = true;
 			
 			//miniGame.Init();
+		}
+		if (other.gameObject.CompareTag("Wall")) {
+			nearWall = true;
 		}
 	}
 
@@ -120,6 +135,9 @@ public class PlayerControl : MonoBehaviour
 	void LadderControl() {
 		if (nearLadder) {
 			moveVectorVertical = ch_transform.up * Input.GetAxis("Vertical") * speedOnLadder * Time.deltaTime;
+			if (Input.GetAxis("Vertical") < 0 && isGrounded) {
+				moveVectorVertical = new Vector3(0, 0, 0);
+			}
 			ch_rigidBody.position += moveVectorVertical;
 		}
 	}
