@@ -6,12 +6,16 @@ public class TurbineControlPOI : POI_Object
 {
     public GameObject TurbineFlames;
     public AudioSource TAS;
+    public AudioClip turbin;
+    public AudioClip turbinEND;
     public bool isLostAllFuel;
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
         poiName = "Tur";
+        TAS.loop = true;
+        TAS.volume = 0.2f;
         TAS.Play();
         isElectrical = false;
         TurbineFlames.SetActive(true);
@@ -34,7 +38,7 @@ public class TurbineControlPOI : POI_Object
                 break;
             case PoiStatus.Disabled:
                 {
-                    TAS.Stop();
+                   
                 }
                 break;
             case PoiStatus.Event:
@@ -66,6 +70,10 @@ public class TurbineControlPOI : POI_Object
     {
         TurbineFlames.SetActive(false);
         repairCounter = 0;
+        TAS.clip = turbinEND;
+        TAS.loop = false;
+        TAS.volume = 0.6f;
+        TAS.Play();
         
         NewStatus(PoiStatus.Disabled);
         WarningSign.SetActive(false);
@@ -88,6 +96,9 @@ public class TurbineControlPOI : POI_Object
 
     public override void ResetAfterEvent()
     {
+        TAS.clip = turbin;
+        TAS.loop = true;
+        TAS.volume = 0.2f;
         TAS.Play();
         WarningSign.SetActive(false);
         TurbineFlames.SetActive(true);
@@ -105,6 +116,10 @@ public class TurbineControlPOI : POI_Object
             if (status == PoiStatus.Event || status == PoiStatus.Disabled) GM.gm.DeleteActiveEvent();
             NewStatus(PoiStatus.Disabled);
             TurbineFlames.SetActive(false);
+            TAS.clip = turbinEND;
+            TAS.loop = false;
+            TAS.volume = 0.6f;
+            TAS.Play();
             WarningSign.SetActive(false);
             isInteractable = false;
             isLostAllFuel = true;
@@ -139,6 +154,10 @@ public class TurbineControlPOI : POI_Object
                 isLostAllFuel = false;
                 return;
             }
+            
+            TAS.clip = turbin;
+            TAS.loop = true;
+            TAS.volume = 0.2f;
             TAS.Play();
             status = lastStatus;
             isLostAllFuel = false;
