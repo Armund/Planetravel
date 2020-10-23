@@ -17,7 +17,7 @@ public class MainMenuUI : MonoBehaviour
 
     public void StartTheGame()
     {
-        SceneManager.LoadScene("SessionScene", LoadSceneMode.Single);
+        SceneManager.LoadScene("IntroScene", LoadSceneMode.Single);
     }
 
     public void ExitTheGame()
