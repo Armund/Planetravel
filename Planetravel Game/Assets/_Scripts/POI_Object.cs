@@ -34,7 +34,6 @@ public class POI_Object : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        MR = GetComponent<MeshRenderer>();
         gameObject.tag = "POI";
 		//miniGame.SetPoi(this);
     }
