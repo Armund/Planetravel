@@ -12,7 +12,6 @@ public class GenPOI : POI_Object
     protected override void Start()
     {
         base.Start();
-        MR.material = genOnMat;
         poiName = "Gen";
         isElectrical = false;
         lastStatus = PoiStatus.Active;
@@ -64,7 +63,6 @@ public class GenPOI : POI_Object
     public override void PoiEventEffect()
     {
         EGenerator(false);
-        MR.material = genOffMat;
         repairCounter = 0;
         NewStatus(PoiStatus.Disabled);
         WarningSign.SetActive(false);
@@ -93,7 +91,6 @@ public class GenPOI : POI_Object
         isInteractable = false;
         timeBeforeNextEvent = Random.Range(minTimeBeforeEvent, maxTImeBeforeEvent);
         EGenerator(true);
-        MR.material = genOnMat;
         GM.gm.DeleteActiveEvent();
         NewStatus(PoiStatus.Active);
         EventDone = false;    

@@ -27,9 +27,6 @@ public class LabPOI : POI_Object
         status = PoiStatus.UnActive;
         isInteractable = true;
         AS = GetComponent<AudioSource>();
-        container = transform.Find("ConPivot").gameObject;
-        occupScale = new Vector3(0,((1 - 0.01f) / (containerСapacity / occupancy)),0);
-        startScale = container.transform.localScale;
 
     }
 
@@ -76,7 +73,6 @@ public class LabPOI : POI_Object
 
         if (curCapacity < containerСapacity)
         {
-            container.transform.localScale += occupScale * Time.deltaTime;
             curCapacity += occupancy * Time.deltaTime;
         }
         else
@@ -84,7 +80,6 @@ public class LabPOI : POI_Object
             isInteractable = true;
             fuelBattery.SetActive(true);
             AS.Stop();
-            container.transform.localScale = startScale;
             curCapacity = 0;
             NewStatus(PoiStatus.Event);
         }
