@@ -59,14 +59,12 @@ public class PlayerControl : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !nearLadder && isGrounded)
-        {
-            ch_rigidBody.AddForce(ch_transform.up * jumpForce);
-        }
-        if (nearPOI && Input.GetKeyDown(KeyCode.E))
-        {
-            poiObject.Interacting();
-        }
+		if (Input.GetKeyDown(KeyCode.Space) && !nearLadder && isGrounded && !PauseScript.pause) {
+			ch_rigidBody.AddForce(ch_transform.up * jumpForce);
+		}
+		if (nearPOI && Input.GetKeyDown(KeyCode.E)) {
+			poiObject.Interacting();
+		}
 
         if (ch_animator.GetBool("run") && !StepAS.isPlaying)
         {
@@ -159,16 +157,6 @@ public class PlayerControl : MonoBehaviour
             //miniGame.Init();
         }
     }
-
-
-	private void Update() {
-		if (Input.GetKeyDown(KeyCode.Space) && !nearLadder && isGrounded && !PauseScript.pause) {
-			ch_rigidBody.AddForce(ch_transform.up * jumpForce);
-		}
-		if (nearPOI && Input.GetKeyDown(KeyCode.E)) {
-				poiObject.Interacting();
-		}
-	}
 
     void LadderControl()
     {
