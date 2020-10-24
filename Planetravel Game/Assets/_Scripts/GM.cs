@@ -179,6 +179,11 @@ public class GM : MonoBehaviour
                                     poi.lastStatus = PoiStatus.UnActive;
                                     poi.isInteractable = false;
                                 }
+                                foreach (TurbineControlPOI tur in Turbines)
+                                {
+                                    tur.maxTImeBeforeEvent = 100000f;
+                                    tur.minTimeBeforeEvent = 100000f;
+                                }
                                 PS.speedOfOneTurbine = 1f;
                                 waitForChangeSetter = 0.1f;
                                 meteorites.meteoriteDMG = 50;
