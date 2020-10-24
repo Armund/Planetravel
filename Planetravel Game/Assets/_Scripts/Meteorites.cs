@@ -67,7 +67,7 @@ public class Meteorites : MonoBehaviour
         if(curMeteorite != null)
         {
             curMeteorite.transform.position = Vector3.Lerp(Spawner[r].position, Getter[r].position, changer);
-            changer += 0.12f * Time.deltaTime;
+            changer += 0.13f * Time.deltaTime;
             
             if (changer >= 1)
             {
@@ -88,7 +88,7 @@ public class Meteorites : MonoBehaviour
         curAS = curEXP.GetComponent<AudioSource>();
         curAS.Play();
         isParticleCreated = true;
-        timeForParticle = 1;
+        timeForParticle = 1.5f;
         Destroy(curMeteorite);
     }
 
@@ -97,9 +97,10 @@ public class Meteorites : MonoBehaviour
         if(isParticleCreated)
         {
             if (timeForParticle > 0) timeForParticle -= Time.deltaTime;
-            else
+            else if(curEXP != null)
             {
-                Destroy(curEXP);
+                
+                Destroy(curEXP.gameObject);
             }
         }
     }
