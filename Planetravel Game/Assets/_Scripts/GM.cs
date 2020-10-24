@@ -65,17 +65,17 @@ public class GM : MonoBehaviour
                     {
                         ChangeDifficult = false;
                         //Generator
-                        G.InitSetter(30f, 35f, 15f);
+                        G.InitSetter(40f, 50f, 25f);
                         //MainComputer (doesn't use third param)
                         MC.InitSetter(10000f, 10000f, 0f);
                         MC.timeBeforeNextEvent = Random.Range(MC.minTimeBeforeEvent, MC.maxTImeBeforeEvent);
                         //Turbine
                         foreach (TurbineControlPOI poi in Turbines)
                         {
-                            poi.InitSetter(10f, 15f, 10f);
+                            poi.InitSetter(10f, 30f, 15f);
                         }
                         //EnergyShield
-                        ES.InitSetter(20f, 25f, 15f);
+                        ES.InitSetter(30f, 45f, 20f);
                         //Fires
                         FM.InitSetter(90f, 1);
 
@@ -85,38 +85,38 @@ public class GM : MonoBehaviour
                     {
                         ChangeDifficult = false;
                         //Generator
-                        G.InitSetter(20f, 25f, 15f);
+                        G.InitSetter(30f, 40f, 20f);
                         //MainComputer (doesn't use third param)
-                        MC.InitSetter(20f, 25f, 0f);
+                        MC.InitSetter(30f, 40f, 0f);
                         MC.timeBeforeNextEvent = Random.Range(MC.minTimeBeforeEvent, MC.maxTImeBeforeEvent);
                         //Turbine
                         foreach (TurbineControlPOI poi in Turbines)
                         {
-                            poi.InitSetter(10f, 15f, 5f);
+                            poi.InitSetter(10f, 20f, 10f);
                         }
                         //EnergyShield
-                        ES.InitSetter(15f, 20f, 8f);
+                        ES.InitSetter(20f, 30f, 15f);
                         //Fires
-                        FM.InitSetter(45f, 1);
+                        FM.InitSetter(60f, 1);
 
                     }
                     else if (DistanceToPlanet <= 1500 && DistanceToPlanet >= 0 && ChangeDifficult)
                     {
                         ChangeDifficult = false;
                         //Generator
-                        G.InitSetter(15f, 20f, 5f);
+                        G.InitSetter(20f, 30f, 15f);
                         //MainComputer (doesn't use third param)
-                        MC.InitSetter(10f, 15f, 0f);
+                        MC.InitSetter(20f, 25f, 0f);
                         MC.timeBeforeNextEvent = Random.Range(MC.minTimeBeforeEvent, MC.maxTImeBeforeEvent);
                         //Turbine
                         foreach (TurbineControlPOI poi in Turbines)
                         {
-                            poi.InitSetter(10f, 15f, 5f);
+                            poi.InitSetter(10f, 15f, 7f);
                         }
                         //EnergyShield
-                        ES.InitSetter(10f, 15f, 5f);
+                        ES.InitSetter(15f, 20f, 10f);
                         //Fires
-                        FM.InitSetter(20f, 2);
+                        FM.InitSetter(40f, 2);
                         
                     }
                 }
@@ -137,7 +137,7 @@ public class GM : MonoBehaviour
         DifficultChanger();
     }
 
-    public void ShipGetsDamage(int damage)
+    public void ShipGetsDamage(float damage)
     {
         PS.HP -= damage;
     }

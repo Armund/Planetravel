@@ -12,7 +12,7 @@ public class Meteorites : MonoBehaviour
     public bool Act;
     public float cooldownBetweenMeteorites;
     public float cooldownSetter;
-    public int meteoriteDMG = 500;
+    public float meteoriteDMG = 500;
     public int randomic
     {
         get { return Random.Range(0, 2); }
