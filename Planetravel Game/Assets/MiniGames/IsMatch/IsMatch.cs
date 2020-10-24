@@ -119,7 +119,7 @@ public class IsMatch : MiniGame
 			//result.text = "RIGHT";
 			result.color = Color.green;
 		} else {
-			currentScore -= 2;
+			currentScore -= 1;
 			if (currentScore < 0) {
 				currentScore = 0;
 			}
