@@ -41,6 +41,7 @@ public class ImageController : MonoBehaviour
 
 	// Update is called once per frame
 	private void Update() {
+		/*
 		if (Input.GetKey(KeyCode.B)) {
 			currentDistance += 1f;
 		} else if ((Input.GetKey(KeyCode.V))) {
@@ -49,6 +50,7 @@ public class ImageController : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.C)) {
 			isDirectionToPlanet = !isDirectionToPlanet;
 		}
+		*/
 	}
 
 	void FixedUpdate()
