@@ -35,7 +35,7 @@ public class IntroScript : MonoBehaviour
 			button.sprite = playSprite;
 		} else if (i == 2) {
 			if (MainMenuUI.playTutorial) {
-				//SceneManager.LoadScene("SessionScene", LoadSceneMode.Single);
+				SceneManager.LoadScene("Tutorial", LoadSceneMode.Single);
 			} else {
 				SceneManager.LoadScene("SessionScene", LoadSceneMode.Single);
 			}
