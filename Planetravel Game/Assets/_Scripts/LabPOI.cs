@@ -104,15 +104,34 @@ public class LabPOI : POI_Object
     public override void MiniGameInteraction()
     {
         if (!EventDone) return;
-        else { NewStatus(PoiStatus.Active); EventDone = false; AS.clip = FillingUpBubble; AS.loop = true; AS.Play(); }
+        else
+        {
+            NewStatus(PoiStatus.Active);
+            EventDone = false;
+            AS.clip = FillingUpBubble;
+            AS.loop = true;
+            AS.Play();
+            if (GM.gm.isTutorial)
+            {
+                GM.gm.NextState(10);
+                GM.gm.PC.speedMove = 11;
+            }
+        }
     }
 
     public override void Interacting()
     {
         if (isInteractable)
         {
+            
+
             if (status == PoiStatus.UnActive)
             {
+                if (GM.gm.isTutorial)
+                {
+                    GM.gm.PC.speedMove = 0;
+                    GM.gm.NextState(8);
+                }
                 NewStatus(PoiStatus.OnInteraction);
                 miniGame.Init();
                 return;

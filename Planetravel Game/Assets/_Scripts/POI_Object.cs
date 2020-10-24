@@ -13,8 +13,7 @@ public class POI_Object : MonoBehaviour
     public PoiStatus lastStatus;
     protected bool isElectrical;
     public bool isElecNow;
-    [SerializeField]
-    protected bool isInteractable;
+    public bool isInteractable;
     public float timeBeforeNextEvent;
     public float minTimeBeforeEvent;
     public float maxTImeBeforeEvent;
