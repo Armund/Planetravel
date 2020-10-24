@@ -86,6 +86,12 @@ public class MainComPOI : POI_Object
     {
         if (isInteractable)
         {
+
+            if (GM.gm.isTutorial)
+            {
+                GM.gm.NextState(16);
+                GM.gm.PC.speedMove = 0;
+            }
             NewStatus(PoiStatus.OnInteraction);
             miniGame.Init();
         }
@@ -94,11 +100,20 @@ public class MainComPOI : POI_Object
     public override void MiniGameInteraction()
     {
         if (!EventDone) return;
-        else { NewStatus(PoiStatus.AfterEvent); EventDone = false; }
+        else
+        {
+            NewStatus(PoiStatus.AfterEvent);
+            EventDone = false;
+        }
     }
 
     public override void ResetAfterEvent()
     {
+        if (GM.gm.isTutorial)
+        {
+            GM.gm.NextState(18);
+            GM.gm.PC.speedMove = 11;
+        }
         isInteractable = false;
         timeBeforeNextEvent = Random.Range(minTimeBeforeEvent, maxTImeBeforeEvent);
         GM.gm.DeleteActiveEvent();

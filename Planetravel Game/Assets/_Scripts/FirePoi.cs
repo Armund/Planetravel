@@ -33,6 +33,15 @@ public class FirePoi : POI_Object
 
     public override void Interacting()
     {
-        if (GM.gm.isGotFireEST()) { GM.gm.PC.UseItem(); moma.DeleteFire();  gameObject.SetActive(false); }
+        if (GM.gm.isGotFireEST())
+        {
+            GM.gm.PC.UseItem();
+            moma.DeleteFire();
+            gameObject.SetActive(false);
+            if (GM.gm.isTutorial)
+            {
+                GM.gm.NextState(20);
+            }
+        }
     }
 }

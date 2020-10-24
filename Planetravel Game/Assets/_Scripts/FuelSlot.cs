@@ -15,10 +15,19 @@ public class FuelSlot : POI_Object
         status = PoiStatus.UnActive;
     }
 
-    
+
 
     public override void Interacting()
     {
-        if (GM.gm.isGotFuel()) { GM.gm.ReplenishFuel(); GM.gm.PC.UseItem(); }
+
+        if (GM.gm.isGotFuel())
+        {
+            GM.gm.ReplenishFuel();
+            GM.gm.PC.UseItem();
+            if (GM.gm.isTutorial)
+            {
+                GM.gm.NextState(15);
+            }
+        }
     }
 }

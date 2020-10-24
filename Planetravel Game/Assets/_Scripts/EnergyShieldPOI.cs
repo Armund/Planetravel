@@ -15,8 +15,7 @@ public class EnergyShieldPOI : POI_Object
     protected override void Start()
     {
         base.Start();
-        MR = EnergySphere.GetComponent<MeshRenderer>();
-        MR.material = FuelMat;
+
         isElecNow = true;
         poiName = "EShield";
         isElectrical = true;
@@ -38,7 +37,7 @@ public class EnergyShieldPOI : POI_Object
                     if (GM.gm.isMoreEventAvailable()) TickToEvent();
                     LeftShield.SetActive(true);
                     RightShield.SetActive(true);
-                    MR.material = FuelMat;
+
                 }
                 break;
             case PoiStatus.Disabled:
@@ -46,11 +45,12 @@ public class EnergyShieldPOI : POI_Object
                     isInteractable = (isElecNow) ? true : false;
                     RightShield.SetActive(false);
                     LeftShield.SetActive(false);
-                    MR.material = genOffMat;
+
                     if (isElecNow)
                     {
                         WarningSignCanvas.gameObject.SetActive(true);
-                    }else
+                    }
+                    else
                     {
                         WarningSignCanvas.gameObject.SetActive(false);
                     }
@@ -61,7 +61,7 @@ public class EnergyShieldPOI : POI_Object
                     WarningSignCanvas.gameObject.SetActive(true);
                     LeftShield.SetActive(true);
                     RightShield.SetActive(true);
-                    MR.material = FuelMat;
+
                     PoiEvent();
 
                 }
@@ -90,7 +90,7 @@ public class EnergyShieldPOI : POI_Object
         RAS.Play();
         WarningSignCanvas.sprite = WarningBrokenSign;
         WarningSignCanvas.gameObject.SetActive(true);
-        MR.material = genOffMat;
+
 
     }
 
@@ -98,6 +98,11 @@ public class EnergyShieldPOI : POI_Object
     {
         if (isInteractable)
         {
+            if (GM.gm.isTutorial)
+            {
+                GM.gm.NextState(11);
+                GM.gm.PC.speedMove = 0;
+            }
             NewStatus(PoiStatus.OnInteraction);
             miniGame.Init();
         }
@@ -111,12 +116,15 @@ public class EnergyShieldPOI : POI_Object
 
     public override void ResetAfterEvent()
     {
-
+        if (GM.gm.isTutorial)
+        {
+            GM.gm.NextState(13);
+            GM.gm.PC.speedMove = 11;
+        }
         WarningSignCanvas.gameObject.SetActive(false);
         WarningSignCanvas.sprite = WarningAttentionSign;
         isInteractable = false;
         timeBeforeNextEvent = Random.Range(minTimeBeforeEvent, maxTImeBeforeEvent);
-        MR.material = FuelMat;
         GM.gm.DeleteActiveEvent();
         LeftShield.SetActive(true);
         RightShield.SetActive(true);
