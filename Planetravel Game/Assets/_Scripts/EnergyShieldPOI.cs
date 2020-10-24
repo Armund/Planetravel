@@ -125,7 +125,6 @@ public class EnergyShieldPOI : POI_Object
         WarningSignCanvas.sprite = WarningAttentionSign;
         isInteractable = false;
         timeBeforeNextEvent = Random.Range(minTimeBeforeEvent, maxTImeBeforeEvent);
-        GM.gm.DeleteActiveEvent();
         LeftShield.SetActive(true);
         RightShield.SetActive(true);
         NewStatus(PoiStatus.Active);

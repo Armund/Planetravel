@@ -23,8 +23,8 @@ public class POI_Object : MonoBehaviour
     public bool EventDone;
     public float timeForRepair;
     public float repairCounter = 0;
-
-	public MiniGame miniGame;
+    public bool isLostAllFuel;
+    public MiniGame miniGame;
 
     public void InitSetter(float minEvent, float maxEvent, float timeForRep)
     {
@@ -55,7 +55,6 @@ public class POI_Object : MonoBehaviour
             isInteractable = true;
             WarningSignCanvas.gameObject.SetActive(true);
             repairCounter = 0;
-            GM.gm.AddActiveEvent();
             NewStatus(PoiStatus.Event);
         }
     }
