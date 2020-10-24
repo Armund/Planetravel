@@ -9,10 +9,12 @@ public class GM : MonoBehaviour
     public ImageController img;
     public PlayerControl PC;
     public bool Electricity;
+    public List<GameObject> LightSources;
     public GameState state = GameState.Init;
     public static GM gm = null;
     public List<POI_Object> PointsOfInterests = new List<POI_Object>();
     public List<TurbineControlPOI> Turbines = new List<TurbineControlPOI>();
+    public GameObject mainTurbineFlame;
     public MainComPOI MC;
     public EnergyShieldPOI ES;
     public GenPOI G;
@@ -24,7 +26,7 @@ public class GM : MonoBehaviour
         get { return (int)(PS.parsecToDestination - PS.parsecFromStartPoint); }
     }
     public int ActiveEvents;
-    public int ActiveTurbines;
+    public int ActiveTurbinesAmount;
     public bool ChangeDifficult = true;
     // public List<POI_Object> POIwithActiveEvents;
     public int maxOfEvents;
@@ -149,7 +151,7 @@ public class GM : MonoBehaviour
 
     public void AddActiveTurbine()
     {
-        ActiveTurbines++;
+        ActiveTurbinesAmount++;
     }
 
     public void DeleteActiveEvent()
@@ -159,7 +161,7 @@ public class GM : MonoBehaviour
 
     public void DeleteActiveTurbine()
     {
-        ActiveTurbines--;
+        ActiveTurbinesAmount--;
     }
 
     public void DifficultChanger()
@@ -225,10 +227,18 @@ public class GM : MonoBehaviour
 
     private void ActiveTurbine()
     {
-        ActiveTurbines = 0;
+        ActiveTurbinesAmount = 0;
         foreach (TurbineControlPOI tur in Turbines)
         {
-            if (tur.status != PoiStatus.Disabled) ActiveTurbines++;
+            if (tur.status != PoiStatus.Disabled) ActiveTurbinesAmount++;
+        }
+        if(ActiveTurbinesAmount>0)
+        {
+            mainTurbineFlame.SetActive(true);
+        }
+        else
+        {
+            mainTurbineFlame.SetActive(false);
         }
     }
 
@@ -243,7 +253,13 @@ public class GM : MonoBehaviour
         foreach (POI_Object poi in PointsOfInterests)
         {
             poi.SwitchElectricity(Electricity);
+        }    
+        foreach(GameObject temp in LightSources)
+        {
+          temp.SetActive(Electricity);
         }
+            
+        
     }
 
     public bool isGotFuel()

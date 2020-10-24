@@ -8,7 +8,9 @@ public class EnergyShieldPOI : POI_Object
     public Material genOffMat;
     public GameObject EnergySphere;
     public GameObject LeftShield;
+    public AudioSource LAS;
     public GameObject RightShield;
+    public AudioSource RAS;
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -45,12 +47,18 @@ public class EnergyShieldPOI : POI_Object
                     RightShield.SetActive(false);
                     LeftShield.SetActive(false);
                     MR.material = genOffMat;
-                    WarningSign.SetActive(false);
+                    if (isElecNow)
+                    {
+                        WarningSignCanvas.gameObject.SetActive(true);
+                    }else
+                    {
+                        WarningSignCanvas.gameObject.SetActive(false);
+                    }
                 }
                 break;
             case PoiStatus.Event:
                 {
-
+                    WarningSignCanvas.gameObject.SetActive(true);
                     LeftShield.SetActive(true);
                     RightShield.SetActive(true);
                     MR.material = FuelMat;
@@ -78,9 +86,12 @@ public class EnergyShieldPOI : POI_Object
         NewStatus(PoiStatus.Disabled);
         RightShield.SetActive(false);
         LeftShield.SetActive(false);
-        WarningSign.SetActive(false);
+        LAS.Play();
+        RAS.Play();
+        WarningSignCanvas.sprite = WarningBrokenSign;
+        WarningSignCanvas.gameObject.SetActive(true);
         MR.material = genOffMat;
-        WarningSign.SetActive(false);
+
     }
 
     public override void Interacting()
@@ -95,12 +106,14 @@ public class EnergyShieldPOI : POI_Object
     public override void MiniGameInteraction()
     {
         if (!EventDone) return;
-        else { NewStatus(PoiStatus.AfterEvent); EventDone = false; WarningSign.SetActive(false); }
+        else { NewStatus(PoiStatus.AfterEvent); EventDone = false; }
     }
 
     public override void ResetAfterEvent()
     {
-        WarningSign.SetActive(false);
+
+        WarningSignCanvas.gameObject.SetActive(false);
+        WarningSignCanvas.sprite = WarningAttentionSign;
         isInteractable = false;
         timeBeforeNextEvent = Random.Range(minTimeBeforeEvent, maxTImeBeforeEvent);
         MR.material = FuelMat;
