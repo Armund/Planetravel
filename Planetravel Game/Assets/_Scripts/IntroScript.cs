@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class IntroScript : MonoBehaviour
 {
 	public Image img1, img2, img3;
+	public Image button;
+	public Sprite playSprite;
 	int i = 0;
 
     // Start is called before the first frame update
@@ -30,8 +32,13 @@ public class IntroScript : MonoBehaviour
 			img2.gameObject.SetActive(false);
 			img3.gameObject.SetActive(true);
 			i++;
+			button.sprite = playSprite;
 		} else if (i == 2) {
-			SceneManager.LoadScene("SessionScene", LoadSceneMode.Single);
+			if (MainMenuUI.playTutorial) {
+				//SceneManager.LoadScene("SessionScene", LoadSceneMode.Single);
+			} else {
+				SceneManager.LoadScene("SessionScene", LoadSceneMode.Single);
+			}
 		}
 	}
 }
