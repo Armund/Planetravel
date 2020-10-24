@@ -39,14 +39,9 @@ public class TurbineControlPOI : POI_Object
                 break;
             case PoiStatus.Disabled:
                 {
-                    if (isElecNow)
-                    {
+                    
                         WarningSignCanvas.gameObject.SetActive(true);
-                    }
-                    else
-                    {
-                        WarningSignCanvas.gameObject.SetActive(false);
-                    }
+                    
                 }
                 break;
             case PoiStatus.Event:
