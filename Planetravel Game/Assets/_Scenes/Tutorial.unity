@@ -12769,7 +12769,7 @@ MonoBehaviour:
   repairCounter: 0
   isLostAllFuel: 0
   miniGame: {fileID: 0}
-  moma: {fileID: 0}
+  moma: {fileID: 1994226788}
   dmg: 1.7
   cooldown: 0
   cooldownSetter: 0.2
