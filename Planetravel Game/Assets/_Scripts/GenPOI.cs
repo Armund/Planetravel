@@ -73,7 +73,12 @@ public class GenPOI : POI_Object
     public override void Interacting()
     {
         if (isInteractable)
-        {                       
+        {
+            if (GM.gm.isTutorial)
+            {
+                GM.gm.NextState(21);
+                GM.gm.PC.speedMove = 0;
+            }
             NewStatus(PoiStatus.OnInteraction);
 			miniGame.Init();
             //Вот тут вызов миниигры
@@ -89,6 +94,11 @@ public class GenPOI : POI_Object
 
     public override void ResetAfterEvent()
     {
+        if (GM.gm.isTutorial)
+        {
+            GM.gm.NextState(23);
+            GM.gm.PC.speedMove = 11;
+        }
         WarningSignCanvas.sprite = WarningAttentionSign;
         WarningSignCanvas.gameObject.SetActive(false);
         isInteractable = false;

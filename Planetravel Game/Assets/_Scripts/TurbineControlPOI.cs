@@ -91,6 +91,10 @@ public class TurbineControlPOI : POI_Object
     {
         if (isInteractable)
         {
+            if(GM.gm.isTutorial)
+            {
+                GM.gm.NextState(5);
+            }
             NewStatus(PoiStatus.OnInteraction);
             miniGame.Init();
         }
@@ -104,6 +108,14 @@ public class TurbineControlPOI : POI_Object
 
     public override void ResetAfterEvent()
     {
+        if (GM.gm.isTutorial && GM.gm.ActiveEvents == 1)
+        {
+            GM.gm.NextState(7);
+        }
+        else if(GM.gm.isTutorial && GM.gm.ActiveEvents == 2)
+        {
+            GM.gm.PC.speedMove = 11;
+        }
         TAS.clip = turbin;
         TAS.loop = true;
         TAS.volume = 0.2f;
