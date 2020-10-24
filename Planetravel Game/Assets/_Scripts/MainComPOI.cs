@@ -116,9 +116,9 @@ public class MainComPOI : POI_Object
         }
         isInteractable = false;
         timeBeforeNextEvent = Random.Range(minTimeBeforeEvent, maxTImeBeforeEvent);
-        GM.gm.DeleteActiveEvent();
         WarningSignCanvas.gameObject.SetActive(false);
         WarningSignCanvas.sprite = WarningAttentionSign;
+        directionMod = 1;
         speedMod = 1;
         NewStatus(PoiStatus.Active);
         GM.gm.img.isDirectionToPlanet = true;

@@ -108,7 +108,6 @@ public class GenPOI : POI_Object
             AS.Play();
         }
         EGenerator(true);
-        GM.gm.DeleteActiveEvent();
         NewStatus(PoiStatus.Active);
         EventDone = false;    
     }

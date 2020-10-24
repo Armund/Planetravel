@@ -8,7 +8,7 @@ public class TurbineControlPOI : POI_Object
     public AudioSource TAS;
     public AudioClip turbin;
     public AudioClip turbinEND;
-    public bool isLostAllFuel;
+    public Sprite WarningFuelSign;
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -120,7 +120,6 @@ public class TurbineControlPOI : POI_Object
         TurbineFlames.SetActive(true);
         isInteractable = false;
         timeBeforeNextEvent = Random.Range(minTimeBeforeEvent, maxTImeBeforeEvent);
-        GM.gm.DeleteActiveEvent();
         NewStatus(PoiStatus.Active);
         EventDone = false;
     }
@@ -129,14 +128,15 @@ public class TurbineControlPOI : POI_Object
     {
         if (GM.gm.PS.fuel <= 0 && !isLostAllFuel)
         {
-            if (status == PoiStatus.Event || status == PoiStatus.Disabled) GM.gm.DeleteActiveEvent();
+
             NewStatus(PoiStatus.Disabled);
             TurbineFlames.SetActive(false);
             TAS.clip = turbinEND;
             TAS.loop = false;
             TAS.volume = 0.6f;
             TAS.Play();
-            WarningSignCanvas.gameObject.SetActive(false);
+            WarningSignCanvas.sprite = WarningFuelSign;
+            WarningSignCanvas.gameObject.SetActive(true);
             isInteractable = false;
             isLostAllFuel = true;
             miniGame.isStarted = false;
@@ -148,38 +148,7 @@ public class TurbineControlPOI : POI_Object
     {
         if(isLostAllFuel && GM.gm.PS.fuel >0)
         {
-            TurbineFlames.SetActive(true);
-            
-            if (lastStatus == PoiStatus.Disabled)
-            {
-                TAS.Stop();
-                isInteractable = true;
-                TurbineFlames.SetActive(false);
-                WarningSignCanvas.sprite = WarningBrokenSign;
-                WarningSignCanvas.gameObject.SetActive(true);
-                status = lastStatus;
-                isLostAllFuel = false;
-                return;
-            }
-            else if(lastStatus == PoiStatus.OnInteraction)
-            {
-                TAS.Stop();
-                isInteractable = true;
-                WarningSignCanvas.sprite = WarningBrokenSign;
-                WarningSignCanvas.gameObject.SetActive(true);
-                TurbineFlames.SetActive(false);
-                GM.gm.AddActiveEvent();
-                isInteractable = true;
-                NewStatus(PoiStatus.Disabled);
-                isLostAllFuel = false;
-                return;
-            }
-            
-            TAS.clip = turbin;
-            TAS.loop = true;
-            TAS.volume = 0.2f;
-            TAS.Play();
-            status = lastStatus;
+            ResetAfterEvent();
             isLostAllFuel = false;
         }
     }

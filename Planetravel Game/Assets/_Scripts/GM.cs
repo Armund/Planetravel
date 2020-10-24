@@ -122,7 +122,7 @@ public class GM : MonoBehaviour
                         //Generator
                         G.InitSetter(30f, 40f, 20f);
                         //MainComputer (doesn't use third param)
-                        MC.InitSetter(30f, 40f, 0f);
+                        MC.InitSetter(25f, 30f, 0f);
                         MC.timeBeforeNextEvent = Random.Range(MC.minTimeBeforeEvent, MC.maxTImeBeforeEvent);
                         //Turbine
                         foreach (TurbineControlPOI poi in Turbines)
@@ -555,6 +555,7 @@ public class GM : MonoBehaviour
 
         }
         ActiveTurbine();
+        ActiveEventsAmount();
         DifficultChanger();
     }
 
@@ -576,20 +577,12 @@ public class GM : MonoBehaviour
         PS.HP -= damage;
     }
 
-    public void AddActiveEvent()
-    {
-        ActiveEvents++;
-    }
 
     public void AddActiveTurbine()
     {
         ActiveTurbinesAmount++;
     }
 
-    public void DeleteActiveEvent()
-    {
-        ActiveEvents--;
-    }
 
     public void DeleteActiveTurbine()
     {
@@ -658,12 +651,20 @@ public class GM : MonoBehaviour
 
     }
 
+    private void ActiveEventsAmount()
+    {
+        ActiveEvents = 0;
+        foreach (POI_Object poi in PointsOfInterests)
+        {
+            if ((((poi.status == PoiStatus.Disabled && (poi.lastStatus == PoiStatus.Event || poi.lastStatus == PoiStatus.OnInteraction))||(poi.status == PoiStatus.OnInteraction)||(poi.status == PoiStatus.Event))&& poi.poiName != "Lab")) ActiveEvents++;
+        }
+    }
     private void ActiveTurbine()
     {
         ActiveTurbinesAmount = 0;
         foreach (TurbineControlPOI tur in Turbines)
         {
-            if (tur.status != PoiStatus.Disabled || !(tur.status == PoiStatus.OnInteraction && tur.lastStatus == PoiStatus.Disabled)) ActiveTurbinesAmount++;
+            if (tur.status != PoiStatus.Disabled && !(tur.status == PoiStatus.OnInteraction && tur.lastStatus == PoiStatus.Disabled)) ActiveTurbinesAmount++;
         }
         if (ActiveTurbinesAmount > 0)
         {
