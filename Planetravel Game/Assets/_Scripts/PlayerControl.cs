@@ -60,11 +60,13 @@ public class PlayerControl : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.Space) && !nearLadder && isGrounded) {
 			ch_rigidBody.AddForce(ch_transform.up * jumpForce);
 		}
+		if (nearPOI && Input.GetKeyDown(KeyCode.E)) {
+				poiObject.Interacting();
+		}
 	}
 
 	void FixedUpdate()
     {
-
 		moveVectorHorizontal = transform.forward * Mathf.Abs(Input.GetAxis("Horizontal")) * speedMove * Time.deltaTime;
 		if (!nearWall) {
 			ch_rigidBody.position += moveVectorHorizontal;
@@ -74,9 +76,6 @@ public class PlayerControl : MonoBehaviour
 		
 		LadderControl();
 
-		if (nearPOI && Input.GetKeyDown(KeyCode.E)) {
-				poiObject.Interacting();
-		}
 
 		if (Input.GetKey(KeyCode.D)) {
 			ch_animator.SetBool("run", true);
