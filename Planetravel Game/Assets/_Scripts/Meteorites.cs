@@ -9,6 +9,7 @@ public class Meteorites : MonoBehaviour
     public GameObject meteoritePrefab;
     public GameObject curMeteorite;
     public AudioSource curAS;
+    public Animator anim;
     public bool Act;
     public float cooldownBetweenMeteorites;
     public float cooldownSetter;
@@ -27,6 +28,7 @@ public class Meteorites : MonoBehaviour
     void Start()
     {
         cooldownBetweenMeteorites = cooldownSetter;
+        
     }
 
     // Update is called once per frame
@@ -47,6 +49,15 @@ public class Meteorites : MonoBehaviour
         {
             r = randomic;
             curMeteorite = Instantiate(meteoritePrefab, Spawner[r].position, Quaternion.identity);
+            anim = curMeteorite.GetComponent<Animator>();
+            if (r == 0)
+            {
+                anim.SetFloat("Right", 1);
+            }
+            else
+            {
+                anim.SetFloat("Right", -1);
+            }
             cooldownBetweenMeteorites = cooldownSetter;
         }
     }
@@ -56,7 +67,7 @@ public class Meteorites : MonoBehaviour
         if(curMeteorite != null)
         {
             curMeteorite.transform.position = Vector3.Lerp(Spawner[r].position, Getter[r].position, changer);
-            changer += 0.12f * Time.deltaTime;
+            changer += 0.13f * Time.deltaTime;
             
             if (changer >= 1)
             {
@@ -77,7 +88,7 @@ public class Meteorites : MonoBehaviour
         curAS = curEXP.GetComponent<AudioSource>();
         curAS.Play();
         isParticleCreated = true;
-        timeForParticle = 1;
+        timeForParticle = 1.5f;
         Destroy(curMeteorite);
     }
 
@@ -86,9 +97,10 @@ public class Meteorites : MonoBehaviour
         if(isParticleCreated)
         {
             if (timeForParticle > 0) timeForParticle -= Time.deltaTime;
-            else
+            else if(curEXP != null)
             {
-                Destroy(curEXP);
+                
+                Destroy(curEXP.gameObject);
             }
         }
     }

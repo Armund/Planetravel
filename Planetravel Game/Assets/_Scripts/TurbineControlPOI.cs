@@ -17,6 +17,7 @@ public class TurbineControlPOI : POI_Object
         TAS.loop = true;
         TAS.volume = 0.2f;
         TAS.Play();
+        WarningSignCanvas.sprite = WarningAttentionSign;
         isElectrical = false;
         TurbineFlames.SetActive(true);
         lastStatus = PoiStatus.Active;
@@ -38,7 +39,14 @@ public class TurbineControlPOI : POI_Object
                 break;
             case PoiStatus.Disabled:
                 {
-                   
+                    if (isElecNow)
+                    {
+                        WarningSignCanvas.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        WarningSignCanvas.gameObject.SetActive(false);
+                    }
                 }
                 break;
             case PoiStatus.Event:
@@ -76,7 +84,7 @@ public class TurbineControlPOI : POI_Object
         TAS.Play();
         
         NewStatus(PoiStatus.Disabled);
-        WarningSign.SetActive(false);
+        WarningSignCanvas.sprite = WarningBrokenSign;
     }
 
     public override void Interacting()
@@ -91,7 +99,7 @@ public class TurbineControlPOI : POI_Object
     public override void MiniGameInteraction()
     {
         if (!EventDone) return;
-        else { NewStatus(PoiStatus.AfterEvent); EventDone = false; WarningSign.SetActive(false); }
+        else { NewStatus(PoiStatus.AfterEvent); EventDone = false;  }
     }
 
     public override void ResetAfterEvent()
@@ -100,7 +108,8 @@ public class TurbineControlPOI : POI_Object
         TAS.loop = true;
         TAS.volume = 0.2f;
         TAS.Play();
-        WarningSign.SetActive(false);
+        WarningSignCanvas.sprite = WarningAttentionSign;
+        WarningSignCanvas.gameObject.SetActive(false);
         TurbineFlames.SetActive(true);
         isInteractable = false;
         timeBeforeNextEvent = Random.Range(minTimeBeforeEvent, maxTImeBeforeEvent);
@@ -120,7 +129,7 @@ public class TurbineControlPOI : POI_Object
             TAS.loop = false;
             TAS.volume = 0.6f;
             TAS.Play();
-            WarningSign.SetActive(false);
+            WarningSignCanvas.gameObject.SetActive(false);
             isInteractable = false;
             isLostAllFuel = true;
             miniGame.isStarted = false;
@@ -139,6 +148,8 @@ public class TurbineControlPOI : POI_Object
                 TAS.Stop();
                 isInteractable = true;
                 TurbineFlames.SetActive(false);
+                WarningSignCanvas.sprite = WarningBrokenSign;
+                WarningSignCanvas.gameObject.SetActive(true);
                 status = lastStatus;
                 isLostAllFuel = false;
                 return;
@@ -147,10 +158,12 @@ public class TurbineControlPOI : POI_Object
             {
                 TAS.Stop();
                 isInteractable = true;
-                WarningSign.SetActive(true);
+                WarningSignCanvas.sprite = WarningBrokenSign;
+                WarningSignCanvas.gameObject.SetActive(true);
                 TurbineFlames.SetActive(false);
                 GM.gm.AddActiveEvent();
-                NewStatus(PoiStatus.Event);
+                isInteractable = true;
+                NewStatus(PoiStatus.Disabled);
                 isLostAllFuel = false;
                 return;
             }

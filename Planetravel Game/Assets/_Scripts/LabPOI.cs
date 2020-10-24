@@ -9,6 +9,8 @@ public class LabPOI : POI_Object
     public float curCapacity = 0;
     public float occupancy = 2;
     public AudioSource AS;
+    public AudioClip FillingUpBubble;
+    public AudioClip GetFuelBulk;
     public Vector3 occupScale;
     public Vector3 startScale;
 
@@ -26,6 +28,8 @@ public class LabPOI : POI_Object
         startScale = container.transform.localScale;
         isElectrical = true;
         EventDone = false;
+        AS.clip = FillingUpBubble;
+        AS.loop = true;
         lastStatus = PoiStatus.UnActive;
         status = PoiStatus.UnActive;
         isInteractable = true;
@@ -37,10 +41,11 @@ public class LabPOI : POI_Object
     void Update()
     {
 
-        switch(status)
+        switch (status)
         {
             case PoiStatus.UnActive:
                 {
+                    
                     isInteractable = true;
                 }
                 break;
@@ -52,22 +57,27 @@ public class LabPOI : POI_Object
                 break;
             case PoiStatus.Active:
                 {
+                    if (!AS.isPlaying)
+                    {
+                        AS.clip = FillingUpBubble; AS.Play();
+                    }
                     fillingUP();
                 }
-                break;      
+                break;
             case PoiStatus.Disabled:
                 {
+                    if (AS.isPlaying) AS.Stop();
                     isInteractable = (lastStatus == PoiStatus.Event) ? true : false;
                 }
                 break;
             case PoiStatus.Event:
                 {
-                    isInteractable = true;              
+                    isInteractable = true;
                 }
                 break;
         }
 
-       
+
     }
 
     //Заполнения контейнера с топливом. Будучи заполненым, контейнер какое-то время еще будет заполнятся, пока не сломается.
@@ -94,19 +104,19 @@ public class LabPOI : POI_Object
     public override void MiniGameInteraction()
     {
         if (!EventDone) return;
-        else { NewStatus(PoiStatus.Active); EventDone = false; AS.Play(); }
+        else { NewStatus(PoiStatus.Active); EventDone = false; AS.clip = FillingUpBubble; AS.loop = true; AS.Play(); }
     }
 
     public override void Interacting()
     {
-        if(isInteractable)
+        if (isInteractable)
         {
             if (status == PoiStatus.UnActive)
             {
                 NewStatus(PoiStatus.OnInteraction);
                 miniGame.Init();
                 return;
-                
+
             }
             else if (status == PoiStatus.Event)
             {
@@ -126,6 +136,9 @@ public class LabPOI : POI_Object
 
     public void GetFuel()
     {
+        AS.clip = GetFuelBulk;
+        AS.loop = false;
+        AS.Play();
         fuelBattery.SetActive(false);
         GM.gm.PC.GetItem(fuelBatteryPref, 1);
     }
