@@ -40,6 +40,14 @@ public class MainComPOI : POI_Object
             case PoiStatus.Disabled:
                 {
                     isInteractable = (isElecNow) ? true : false;
+                    if (isElecNow)
+                    {
+                        WarningSignCanvas.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        WarningSignCanvas.gameObject.SetActive(false);
+                    }
                 }
                 break;
             case PoiStatus.Event:
@@ -69,6 +77,7 @@ public class MainComPOI : POI_Object
     public void ChangingWay()
     {
         speedMod = Mathf.Lerp(-1, 1, directionMod);
+        if (speedMod < 0) WarningSignCanvas.sprite = WarningBrokenSign;
         directionMod -= changingDirStep * Time.deltaTime;
     }
 
@@ -85,7 +94,7 @@ public class MainComPOI : POI_Object
     public override void MiniGameInteraction()
     {
         if (!EventDone) return;
-        else { NewStatus(PoiStatus.AfterEvent); EventDone = false; WarningSign.SetActive(false); }
+        else { NewStatus(PoiStatus.AfterEvent); EventDone = false; }
     }
 
     public override void ResetAfterEvent()
@@ -93,7 +102,8 @@ public class MainComPOI : POI_Object
         isInteractable = false;
         timeBeforeNextEvent = Random.Range(minTimeBeforeEvent, maxTImeBeforeEvent);
         GM.gm.DeleteActiveEvent();
-        WarningSign.SetActive(false);
+        WarningSignCanvas.gameObject.SetActive(false);
+        WarningSignCanvas.sprite = WarningAttentionSign;
         speedMod = 1;
         NewStatus(PoiStatus.Active);
         GM.gm.img.isDirectionToPlanet = true;

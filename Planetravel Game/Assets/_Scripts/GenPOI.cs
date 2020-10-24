@@ -7,13 +7,15 @@ public class GenPOI : POI_Object
 {
     public Material genOnMat;
     public Material genOffMat;
-
+    public AudioSource AS;
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
         poiName = "Gen";
+        AS = GetComponent<AudioSource>();
         isElectrical = false;
+        WarningSignCanvas.sprite = WarningAttentionSign;
         lastStatus = PoiStatus.Active;
         status = PoiStatus.Active;
         timeBeforeNextEvent = Random.Range(minTimeBeforeEvent, maxTImeBeforeEvent);
@@ -65,7 +67,7 @@ public class GenPOI : POI_Object
         EGenerator(false);
         repairCounter = 0;
         NewStatus(PoiStatus.Disabled);
-        WarningSign.SetActive(false);
+        WarningSignCanvas.sprite = WarningBrokenSign;
     }
 
     public override void Interacting()
@@ -82,14 +84,19 @@ public class GenPOI : POI_Object
     public override void MiniGameInteraction()
     {
         if (!EventDone) return;
-        else { NewStatus(PoiStatus.AfterEvent); EventDone = false; WarningSign.SetActive(false); }
+        else { NewStatus(PoiStatus.AfterEvent); EventDone = false;  }
     }
 
     public override void ResetAfterEvent()
     {
-        WarningSign.SetActive(false);
+        WarningSignCanvas.sprite = WarningAttentionSign;
+        WarningSignCanvas.gameObject.SetActive(false);
         isInteractable = false;
         timeBeforeNextEvent = Random.Range(minTimeBeforeEvent, maxTImeBeforeEvent);
+        if (lastStatus == PoiStatus.Disabled)
+        {
+            AS.Play();
+        }
         EGenerator(true);
         GM.gm.DeleteActiveEvent();
         NewStatus(PoiStatus.Active);

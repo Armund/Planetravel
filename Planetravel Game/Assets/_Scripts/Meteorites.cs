@@ -9,6 +9,7 @@ public class Meteorites : MonoBehaviour
     public GameObject meteoritePrefab;
     public GameObject curMeteorite;
     public AudioSource curAS;
+    public Animator anim;
     public bool Act;
     public float cooldownBetweenMeteorites;
     public float cooldownSetter;
@@ -27,6 +28,7 @@ public class Meteorites : MonoBehaviour
     void Start()
     {
         cooldownBetweenMeteorites = cooldownSetter;
+        
     }
 
     // Update is called once per frame
@@ -47,6 +49,15 @@ public class Meteorites : MonoBehaviour
         {
             r = randomic;
             curMeteorite = Instantiate(meteoritePrefab, Spawner[r].position, Quaternion.identity);
+            anim = curMeteorite.GetComponent<Animator>();
+            if (r == 0)
+            {
+                anim.SetFloat("Right", 1);
+            }
+            else
+            {
+                anim.SetFloat("Right", -1);
+            }
             cooldownBetweenMeteorites = cooldownSetter;
         }
     }

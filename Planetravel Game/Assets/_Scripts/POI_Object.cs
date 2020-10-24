@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum PoiStatus { UnActive, Active, Disabled, Event, OnInteraction, AfterEvent }
 public class POI_Object : MonoBehaviour
@@ -17,7 +18,9 @@ public class POI_Object : MonoBehaviour
     public float timeBeforeNextEvent;
     public float minTimeBeforeEvent;
     public float maxTImeBeforeEvent;
-    public GameObject WarningSign;
+    public Image WarningSignCanvas;
+    public Sprite WarningAttentionSign;
+    public Sprite WarningBrokenSign;
     public bool EventDone;
     public float timeForRepair;
     public float repairCounter = 0;
@@ -51,7 +54,7 @@ public class POI_Object : MonoBehaviour
         else
         {
             isInteractable = true;
-            WarningSign.SetActive(true);
+            WarningSignCanvas.gameObject.SetActive(true);
             repairCounter = 0;
             GM.gm.AddActiveEvent();
             NewStatus(PoiStatus.Event);

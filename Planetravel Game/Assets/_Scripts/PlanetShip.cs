@@ -9,6 +9,7 @@ public class PlanetShip : MonoBehaviour
     public Scrollbar FuelBar;
     public Text PtoD;
     public ImageController img;
+    public Image NoFuelWarning;
     public float maxHP;
     public float HP;
     public float maxFuel;
@@ -24,7 +25,7 @@ public class PlanetShip : MonoBehaviour
     public float speedOfOneTurbine;
     public int workingTurbines
     {
-        get { return GM.gm.ActiveTurbines; }
+        get { return GM.gm.ActiveTurbinesAmount; }
     }
     // Start is called before the first frame update
     void Start()
@@ -32,7 +33,7 @@ public class PlanetShip : MonoBehaviour
         parsecFromStartPoint = 0;
         HP = maxHP;
         fuel = maxFuel;
-        
+
     }
 
     // Update is called once per frame
@@ -66,6 +67,14 @@ public class PlanetShip : MonoBehaviour
         HPbar.size = HP / maxHP;
         FuelBar.size = fuel / maxFuel;
         PtoD.text = "Km left to the destination:\n" + ((int)(parsecToDestination - parsecFromStartPoint)).ToString();
+        if (fuel <= 0)
+        {
+            NoFuelWarning.gameObject.SetActive(true);
+        }
+        else
+        {
+            NoFuelWarning.gameObject.SetActive(false);
+        }
     }
 
     public bool WinCondition()
