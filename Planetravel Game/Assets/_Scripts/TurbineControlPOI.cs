@@ -103,11 +103,11 @@ public class TurbineControlPOI : POI_Object
 
     public override void ResetAfterEvent()
     {
-        if (GM.gm.isTutorial && GM.gm.ActiveEvents == 1)
+        if (GM.gm.isTutorial && GM.gm.ActiveEvents == 0)
         {
             GM.gm.NextState(7);
         }
-        else if(GM.gm.isTutorial && GM.gm.ActiveEvents == 2)
+        else if(GM.gm.isTutorial && GM.gm.ActiveEvents == 1)
         {
             GM.gm.PC.speedMove = 11;
         }
