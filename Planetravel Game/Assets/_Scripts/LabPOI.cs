@@ -12,6 +12,7 @@ public class LabPOI : POI_Object
     public Vector3 occupScale;
     public Vector3 startScale;
 
+
     public GameObject container;
     public GameObject fuelBattery;
     public GameObject fuelBatteryPref;
@@ -21,6 +22,8 @@ public class LabPOI : POI_Object
     {
         base.Start();
         poiName = "Lab";
+        occupScale = new Vector3(0, ((0.248f - 0.001f) / (containerСapacity / occupancy)), 0);
+        startScale = container.transform.localScale;
         isElectrical = true;
         EventDone = false;
         lastStatus = PoiStatus.UnActive;
@@ -74,11 +77,13 @@ public class LabPOI : POI_Object
         if (curCapacity < containerСapacity)
         {
             curCapacity += occupancy * Time.deltaTime;
+            container.transform.localScale += occupScale * Time.deltaTime;
         }
         else
         {
             isInteractable = true;
             fuelBattery.SetActive(true);
+            container.transform.localScale = startScale;
             AS.Stop();
             curCapacity = 0;
             NewStatus(PoiStatus.Event);

@@ -5,7 +5,7 @@ using UnityEngine;
 public class FirePoi : POI_Object
 {
     public FireMaker moma;
-    public int dmg;
+    public float dmg;
     public float cooldown;
     public float cooldownSetter;
     // Start is called before the first frame update
