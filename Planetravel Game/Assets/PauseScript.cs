@@ -2,28 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
-public class PauseScript : MonoBehaviour
-{
+public class PauseScript : MonoBehaviour {
 	[SerializeField]
 	public static bool pause = false;
 
 	public Canvas pauseMenu;
 	public Canvas HowToPlayWindow;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	// Start is called before the first frame update
+	void Start() {
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape)) {
+	}
+
+	// Update is called once per frame
+	void Update() {
+		if (Input.GetKeyDown(KeyCode.Escape)) {
 			PauseGame();
 		}
-    }
+	}
 
 	public void PauseGame() {
 		if (!pause) {
@@ -46,5 +44,16 @@ public class PauseScript : MonoBehaviour
 	public void Back() {
 		HowToPlayWindow.gameObject.SetActive(false);
 		pauseMenu.gameObject.SetActive(true);
+	}
+
+	public void MainMenu() {
+		PauseGame();
+		SceneManager.LoadScene("MainMenuScene", LoadSceneMode.Single);
+	}
+
+	public void SkipTutorial() {
+		pause = true;
+		PauseGame();
+		SceneManager.LoadScene("SessionScene", LoadSceneMode.Single);
 	}
 }

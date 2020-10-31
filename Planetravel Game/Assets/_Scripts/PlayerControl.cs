@@ -43,8 +43,7 @@ public class PlayerControl : MonoBehaviour
 
     //ссылки на другие объекты
     POI_Object poiObject;
-    [SerializeField]
-    AudioSource StepAS;
+    public AudioSource StepAS;
     void Start()
     {
         ch_rigidBody = GetComponent<Rigidbody>();
